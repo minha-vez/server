@@ -1,5 +1,6 @@
 package br.com.carrancas.start.minhavez;
 
+import br.com.carrancas.start.minhavez.entities.Cliente;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MinhaVezApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MinhaVezApplication.class, args);
-	}
+		SpringApplication.run(MinhaVezApplication.class, args);}
 
 }
