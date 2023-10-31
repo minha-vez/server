@@ -1,0 +1,59 @@
+package br.com.carrancas.start.minhavez.entities;
+
+import jakarta.persistence.*;
+
+import java.util.Date;
+
+@Entity
+public class Cliente {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(nullable = false)
+    private String nome;
+    @Column(nullable = false, unique = true)
+    private String cpf;
+    @Column(nullable = false)
+    private Date nascimento;
+
+    public Cliente() {
+    }
+
+    public Cliente(Integer id, String nome, String cpf, Date nascimento) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.nascimento = nascimento;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public Date getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(Date nascimento) {
+        this.nascimento = nascimento;
+    }
+}
+
+
