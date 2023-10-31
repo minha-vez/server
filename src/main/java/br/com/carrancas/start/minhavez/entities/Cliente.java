@@ -1,5 +1,6 @@
 package br.com.carrancas.start.minhavez.entities;
 
+import br.com.carrancas.start.minhavez.eums.Genero;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -16,15 +17,19 @@ public class Cliente {
     private String cpf;
     @Column(nullable = false)
     private Date nascimento;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Genero genero;
 
     public Cliente() {
     }
 
-    public Cliente(Integer id, String nome, String cpf, Date nascimento) {
+    public Cliente(Integer id, String nome, String cpf, Date nascimento, Genero genero) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.nascimento = nascimento;
+        this.genero = genero;
     }
 
     public Integer getId() {
@@ -53,6 +58,13 @@ public class Cliente {
 
     public void setNascimento(Date nascimento) {
         this.nascimento = nascimento;
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
+    public void setGenero(Genero genero) {
+        this.genero = genero;
     }
 }
 
