@@ -1,5 +1,6 @@
 package br.com.carrancas.start.minhavez.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -7,7 +8,7 @@ import java.util.Date;
 @Entity
 public class Fila {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false)
     private String nome;
@@ -15,13 +16,19 @@ public class Fila {
     private Date data;
     private Integer quantidadeMaxima;
 
+    @ManyToOne
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private Hospital hospital;
+
     public Fila() {
     }
-    public Fila(Integer id, String nome, Date data, Integer quantidadeMaxima) {
+
+    public Fila(Integer id, String nome, Date data, Integer quantidadeMaxima, Hospital hospital) {
         this.id = id;
         this.nome = nome;
         this.data = data;
         this.quantidadeMaxima = quantidadeMaxima;
+        this.hospital = hospital;
     }
 
     public Integer getId() {
@@ -55,4 +62,13 @@ public class Fila {
     public void setQuantidadeMaxima(Integer quantidadeMaxima) {
         this.quantidadeMaxima = quantidadeMaxima;
     }
+
+    public Hospital getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(Hospital hospital) {
+        this.hospital = hospital;
+    }
 }
+

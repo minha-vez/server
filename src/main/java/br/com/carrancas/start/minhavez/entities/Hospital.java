@@ -24,17 +24,21 @@ public class Hospital {
     private Boolean status;
 
     @JsonBackReference
-    @OneToMany(mappedBy= "hospital", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CaixaAtendimento> caixaAtendimentoList;
 
+    @JsonBackReference
+    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Fila> filaList;
 
-    public Hospital(Integer id, String nome, String cnpj, String endereco, Boolean status, List<CaixaAtendimento> caixaAtendimentoList) {
+    public Hospital(Integer id, String nome, String cnpj, String endereco, Boolean status, List<CaixaAtendimento> caixaAtendimentoList, List<Fila> filaList) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
         this.endereco = endereco;
         this.status = status;
         this.caixaAtendimentoList = caixaAtendimentoList;
+        this.filaList = filaList;
     }
 
     public Hospital() {
@@ -83,4 +87,14 @@ public class Hospital {
     public void setCaixaAtendimentoList(List<CaixaAtendimento> caixaAtendimentoList) {
         this.caixaAtendimentoList = caixaAtendimentoList;
     }
+
+    public List<Fila> getFilaList() {
+        return filaList;
+    }
+
+    public void setFilaList(List<Fila> filaList) {
+        this.filaList = filaList;
+    }
 }
+
+
