@@ -13,7 +13,7 @@ public class CaixaAtendimento {
     private boolean status;
 
 
-    public CaixaAtendimento(Integer id, String nomeAtendente, boolean Status) {
+    public CaixaAtendimento(Integer id, String nomeAtendente, boolean status) {
         this.id = id;
         this.nomeAtendente = nomeAtendente;
         this.status = status;
@@ -24,10 +24,6 @@ public class CaixaAtendimento {
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getnomeAtendente() {
