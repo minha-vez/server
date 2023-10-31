@@ -11,12 +11,16 @@ public class CaixaAtendimento {
     private String nomeAtendente;
     @Column(nullable = false)
     private boolean status;
+    @ManyToOne
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private Hospital hospital;
 
 
-    public CaixaAtendimento(Integer id, String nomeAtendente, boolean status) {
+    public CaixaAtendimento(Integer id, String nomeAtendente, boolean status, Hospital hospital) {
         this.id = id;
         this.nomeAtendente = nomeAtendente;
         this.status = status;
+        this.hospital = hospital;
     }
 
     public CaixaAtendimento() {
@@ -26,11 +30,11 @@ public class CaixaAtendimento {
         return id;
     }
 
-    public String getnomeAtendente() {
+    public String getNomeAtendente() {
         return nomeAtendente;
     }
 
-    public void setnomeAtendente(String nomeAtendente) {
+    public void setNomeAtendente(String nomeAtendente) {
         this.nomeAtendente = nomeAtendente;
     }
 
@@ -40,5 +44,12 @@ public class CaixaAtendimento {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Hospital getHospital() {
+        return hospital;
+    }
+    public void setHospital(Hospital hospital) {
+        this.hospital = hospital;
     }
 }

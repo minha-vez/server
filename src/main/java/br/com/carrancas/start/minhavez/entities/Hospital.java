@@ -1,10 +1,12 @@
 package br.com.carrancas.start.minhavez.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Hospital {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,15 +23,19 @@ public class Hospital {
     @Column(nullable = false)
     private Boolean status;
 
+    @JsonBackReference
+    @OneToMany(mappedBy= "hospital", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CaixaAtendimento> caixaAtendimentoList;
 
-    public Hospital(Integer id, String nome, String cnpj, String endereco, Boolean status) {
+
+    public Hospital(Integer id, String nome, String cnpj, String endereco, Boolean status, List<CaixaAtendimento> caixaAtendimentoList) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
         this.endereco = endereco;
         this.status = status;
+        this.caixaAtendimentoList = caixaAtendimentoList;
     }
-
 
     public Hospital() {
     }
@@ -68,5 +74,13 @@ public class Hospital {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public List<CaixaAtendimento> getCaixaAtendimentoList() {
+        return caixaAtendimentoList;
+    }
+
+    public void setCaixaAtendimentoList(List<CaixaAtendimento> caixaAtendimentoList) {
+        this.caixaAtendimentoList = caixaAtendimentoList;
     }
 }
