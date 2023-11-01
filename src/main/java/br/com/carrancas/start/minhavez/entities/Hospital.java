@@ -3,7 +3,9 @@ package br.com.carrancas.start.minhavez.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Hospital {
@@ -31,7 +33,13 @@ public class Hospital {
     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Fila> filaList;
 
-    public Hospital(Integer id, String nome, String cnpj, String endereco, Boolean status, List<CaixaAtendimento> caixaAtendimentoList, List<Fila> filaList) {
+    @ManyToMany
+    @JoinTable(name = "hospital_caracteristicas",
+            joinColumns = @JoinColumn(name = "hospital_id"),
+            inverseJoinColumns = @JoinColumn(name = "caracteristicas_id"))
+    private Set<Caracteristica> caracteristicas = new HashSet<>();
+
+    public Hospital(Integer id, String nome, String cnpj, String endereco, Boolean status, List<CaixaAtendimento> caixaAtendimentoList, List<Fila> filaList, Set<Caracteristica> caracteristicas) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
@@ -39,6 +47,7 @@ public class Hospital {
         this.status = status;
         this.caixaAtendimentoList = caixaAtendimentoList;
         this.filaList = filaList;
+        this.caracteristicas = caracteristicas;
     }
 
     public Hospital() {
@@ -94,6 +103,14 @@ public class Hospital {
 
     public void setFilaList(List<Fila> filaList) {
         this.filaList = filaList;
+    }
+
+    public Set<Caracteristica> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public void setCaracteristicas(Set<Caracteristica> caracteristicas) {
+        this.caracteristicas = caracteristicas;
     }
 }
 

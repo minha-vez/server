@@ -2,8 +2,11 @@ package br.com.carrancas.start.minhavez.entities;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-public class Caracteristicas {
+public class Caracteristica {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,19 +15,21 @@ public class Caracteristicas {
     @Column(nullable = false)
     private String descricao;
 
-    public Caracteristicas() {
+    @ManyToMany(mappedBy = "caracteristicas")
+    private Set<Hospital> hospitais = new HashSet<>();
+
+    public Caracteristica() {
     }
 
-    public Caracteristicas(Integer id, String descricao) {
+    public Caracteristica(Integer id, String descricao, Set<Hospital> hospitais) {
         this.id = id;
         this.descricao = descricao;
+        this.hospitais = hospitais;
     }
-
 
     public Integer getId() {
         return id;
     }
-
 
     public String getDescricao() {
         return descricao;
@@ -32,6 +37,13 @@ public class Caracteristicas {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Set<Hospital> getHospitais() {
+        return hospitais;
+    }
+    public void setHospitais(Set<Hospital> hospitais) {
+        this.hospitais = hospitais;
     }
 }
 
