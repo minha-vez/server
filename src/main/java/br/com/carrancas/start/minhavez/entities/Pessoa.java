@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Cliente {
+public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,12 +21,14 @@ public class Cliente {
     @Enumerated(EnumType.STRING)
     private Genero genero;
 
+    @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private FilaDia filaDia;
 
 
-    public Cliente() {
+    public Pessoa() {
     }
 
-    public Cliente(Integer id, String nome, String cpf, Date nascimento, Genero genero) {
+    public Pessoa(Integer id, String nome, String cpf, Date nascimento, Genero genero) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
