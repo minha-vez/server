@@ -1,8 +1,10 @@
 package br.com.carrancas.start.minhavez.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Fila {
@@ -14,6 +16,10 @@ public class Fila {
     @ManyToOne
     @JoinColumn(name = "empresa_id", nullable = false)
     private Empresa empresa;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "fila", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<FilaDia> filaDiaList;
 
     public Fila() {
     }
