@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-public class Hospital {
+public class Empresa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -26,20 +26,20 @@ public class Hospital {
     private Boolean status;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CaixaAtendimento> caixaAtendimentoList;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Fila> filaList;
 
     @ManyToMany
-    @JoinTable(name = "hospital_caracteristicas",
-            joinColumns = @JoinColumn(name = "hospital_id"),
+    @JoinTable(name = "empresa_caracteristicas",
+            joinColumns = @JoinColumn(name = "empresa_id"),
             inverseJoinColumns = @JoinColumn(name = "caracteristicas_id"))
     private Set<Caracteristica> caracteristicas = new HashSet<>();
 
-    public Hospital(Integer id, String nome, String cnpj, String endereco, Boolean status, List<CaixaAtendimento> caixaAtendimentoList, List<Fila> filaList, Set<Caracteristica> caracteristicas) {
+    public Empresa(Integer id, String nome, String cnpj, String endereco, Boolean status, List<CaixaAtendimento> caixaAtendimentoList, List<Fila> filaList, Set<Caracteristica> caracteristicas) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
@@ -50,7 +50,7 @@ public class Hospital {
         this.caracteristicas = caracteristicas;
     }
 
-    public Hospital() {
+    public Empresa() {
     }
 
     public Integer getId() {

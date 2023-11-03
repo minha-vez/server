@@ -16,15 +16,15 @@ public class Caracteristica {
     private String descricao;
 
     @ManyToMany(mappedBy = "caracteristicas")
-    private Set<Hospital> hospitais = new HashSet<>();
+    private Set<Empresa> empresas = new HashSet<>();
 
     public Caracteristica() {
     }
 
-    public Caracteristica(Integer id, String descricao, Set<Hospital> hospitais) {
+    public Caracteristica(Integer id, String descricao, Set<Empresa> empresas) {
         this.id = id;
         this.descricao = descricao;
-        this.hospitais = hospitais;
+        this.empresas = empresas;
     }
 
     public Integer getId() {
@@ -39,11 +39,11 @@ public class Caracteristica {
         this.descricao = descricao;
     }
 
-    public Set<Hospital> getHospitais() {
-        return hospitais;
+    public Set<Empresa> getEmpresas() {
+        return empresas;
     }
-    public void setHospitais(Set<Hospital> hospitais) {
-        this.hospitais = hospitais;
+    public void setEmpresas(Set<Empresa> empresas) {
+        this.empresas = empresas;
     }
 }
 
