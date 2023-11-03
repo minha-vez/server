@@ -20,6 +20,9 @@ public class Cliente {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Genero genero;
+    @ManyToOne
+    @JoinColumn (name = "fila_id", nullable = false )
+    private Fila fila;
 
 
 
@@ -32,6 +35,7 @@ public class Cliente {
         this.cpf = cpf;
         this.nascimento = nascimento;
         this.genero = genero;
+        this.fila = fila;
     }
 
     public Integer getId() {
@@ -68,6 +72,10 @@ public class Cliente {
     public void setGenero(Genero genero) {
         this.genero = genero;
     }
+
+    public Fila getFila() { return fila; }
+
+    public void setFila(Fila fila) { this.fila = fila;}
 }
 
 

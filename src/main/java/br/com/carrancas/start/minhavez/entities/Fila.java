@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Fila {
@@ -15,6 +16,9 @@ public class Fila {
     @Column(nullable = false)
     private Date data;
     private Integer quantidadeMaxima;
+    @JsonBackReference
+    @OneToMany(mappedBy ="fila", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Fila> filaList;
 
     @ManyToOne
     @JoinColumn(name = "hospital_id", nullable = false)
