@@ -10,6 +10,7 @@ import java.util.Date;
 @Setter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Pessoa {
 
@@ -35,54 +36,6 @@ public class Pessoa {
 
     @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     private Ticket ticket;
-
-
-    public Pessoa() {
-    }
-
-    public Pessoa(Integer id, String nome, String cpf, Date nascimento, Genero genero) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.nascimento = nascimento;
-        this.genero = genero;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public Date getNascimento() {
-        return nascimento;
-    }
-
-    public void setNascimento(Date nascimento) {
-        this.nascimento = nascimento;
-    }
-
-    public Genero getGenero() {
-        return genero;
-    }
-
-    public void setGenero(Genero genero) {
-        this.genero = genero;
-    }
 }
 
 
