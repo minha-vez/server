@@ -22,7 +22,7 @@ public class Pessoa {
     private Genero genero;
 
     @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
-    private FilaDia filaDia;
+    private Ticket ticket;
 
 
     public Pessoa() {
@@ -67,6 +67,7 @@ public class Pessoa {
     public Genero getGenero() {
         return genero;
     }
+
     public void setGenero(Genero genero) {
         this.genero = genero;
     }
