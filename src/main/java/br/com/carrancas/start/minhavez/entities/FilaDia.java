@@ -1,8 +1,6 @@
 package br.com.carrancas.start.minhavez.entities;
-
 import jakarta.persistence.*;
-
-import java.sql.Time;
+import java.time.LocalTime;
 
 @Entity
 public class FilaDia {
@@ -13,7 +11,8 @@ public class FilaDia {
 
     private int ordem;
 
-    private Time horaEntrada;
+    private LocalTime horaEntrada;
+
     @ManyToOne
     @JoinColumn(name = "fila_id")
     private Fila fila;

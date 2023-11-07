@@ -3,6 +3,7 @@ package br.com.carrancas.start.minhavez.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class Fila {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false)
-    private Date data;
+    private LocalDate data;
     @ManyToOne
     @JoinColumn(name = "empresa_id", nullable = false)
     private Empresa empresa;
@@ -24,7 +25,7 @@ public class Fila {
     public Fila() {
     }
 
-    public Fila(Integer id, Date data, Empresa empresa) {
+    public Fila(Integer id, LocalDate data, Empresa empresa) {
         this.id = id;
         this.data = data;
         this.empresa = empresa;
@@ -38,11 +39,11 @@ public class Fila {
         this.id = id;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
