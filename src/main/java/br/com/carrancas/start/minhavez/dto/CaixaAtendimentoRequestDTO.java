@@ -12,7 +12,7 @@ public class CaixaAtendimentoRequestDTO {
     private String nomeAtendente;
     private boolean status;
 
-    public static CaixaAtendimento toDTO(CaixaAtendimentoRequestDTO caixaAtendimentoDTO) {
+    public static CaixaAtendimento toEntity(CaixaAtendimentoRequestDTO caixaAtendimentoDTO) {
         return CaixaAtendimento.builder()
                 .nomeAtendente(caixaAtendimentoDTO.getNomeAtendente())
                 .status(caixaAtendimentoDTO.isStatus())
