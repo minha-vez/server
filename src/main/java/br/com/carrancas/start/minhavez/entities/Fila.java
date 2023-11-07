@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,7 +19,7 @@ public class Fila {
 
     @JsonBackReference
     @OneToMany(mappedBy = "fila", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FilaDia> filaDiaList;
+    private List<Ticket> ticketList;
 
     public Fila() {
     }

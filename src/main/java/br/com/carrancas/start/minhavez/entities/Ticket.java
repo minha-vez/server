@@ -1,9 +1,18 @@
 package br.com.carrancas.start.minhavez.entities;
+
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalTime;
 
+
+@Getter
+@Setter
+@NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Entity
-public class FilaDia {
+public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
