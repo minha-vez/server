@@ -1,7 +1,9 @@
 package br.com.carrancas.start.minhavez.entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
+@Builder
 @Entity
 public class CaixaAtendimento {
     @Id
