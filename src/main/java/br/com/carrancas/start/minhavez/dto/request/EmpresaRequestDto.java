@@ -1,4 +1,4 @@
-package br.com.carrancas.start.minhavez.dto;
+package br.com.carrancas.start.minhavez.dto.request;
 
 import br.com.carrancas.start.minhavez.entities.Empresa;
 import lombok.*;

@@ -1,4 +1,4 @@
-package br.com.carrancas.start.minhavez.dto;
+package br.com.carrancas.start.minhavez.dto.response;
 
 import br.com.carrancas.start.minhavez.entities.Ticket;
 import lombok.*;
