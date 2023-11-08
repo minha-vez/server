@@ -1,11 +1,13 @@
 package br.com.carrancas.start.minhavez.entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Builder
 public class Caracteristica {
 
     @Id
