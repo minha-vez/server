@@ -4,6 +4,6 @@ import br.com.carrancas.start.minhavez.entities.Empresa;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface HospitalRepository extends JpaRepository<Empresa, Integer> {
+public interface EmpresaRepository extends JpaRepository<Empresa, Integer> {
 
 }
