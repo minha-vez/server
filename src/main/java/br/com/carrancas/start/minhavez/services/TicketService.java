@@ -1,4 +1,4 @@
-package br.com.carrancas.start.minhavez.service;
+package br.com.carrancas.start.minhavez.services;
 
 import br.com.carrancas.start.minhavez.dto.request.EmpresaRequestDto;
 import br.com.carrancas.start.minhavez.dto.request.TicketRequestDto;

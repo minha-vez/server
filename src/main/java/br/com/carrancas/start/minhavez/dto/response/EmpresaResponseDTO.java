@@ -3,7 +3,7 @@ package br.com.carrancas.start.minhavez.dto.response;
 import br.com.carrancas.start.minhavez.entities.Empresa;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -18,8 +18,8 @@ public class EmpresaResponseDTO {
     private String telefoneParaEmergencia;
     private String email;
     private String website;
-    private LocalDateTime horaInicio;
-    private LocalDateTime horaFinal;
+    private LocalTime horaInicio;
+    private LocalTime horaFinal;
 
 
     public static EmpresaResponseDTO toDto(Empresa empresa){

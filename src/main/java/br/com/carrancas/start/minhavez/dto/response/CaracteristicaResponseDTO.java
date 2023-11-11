@@ -1,6 +1,6 @@
 package br.com.carrancas.start.minhavez.dto.response;
 
-import br.com.carrancas.start.minhavez.entities.Caracteristica;
+import br.com.carrancas.start.minhavez.entities.Especialidade;
 import lombok.*;
 
 @Getter
@@ -11,9 +11,9 @@ import lombok.*;
 public class CaracteristicaResponseDTO {
     private String descricao;
 
-    public static CaracteristicaResponseDTO toDto(Caracteristica caracteristica) {
+    public static CaracteristicaResponseDTO toDto(Especialidade especialidade) {
         return CaracteristicaResponseDTO.builder()
-                .descricao(caracteristica.getDescricao())
+                .descricao(especialidade.getDescricao())
                 .build();
     }
 }

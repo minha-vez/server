@@ -2,11 +2,17 @@ package br.com.carrancas.start.minhavez.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Fila {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,37 +27,5 @@ public class Fila {
     @OneToMany(mappedBy = "fila", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ticket> ticketList;
 
-    public Fila() {
-    }
-
-    public Fila(Integer id, LocalDate data, Empresa empresa) {
-        this.id = id;
-        this.data = data;
-        this.empresa = empresa;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public LocalDate getData() {
-        return data;
-    }
-
-    public void setData(LocalDate data) {
-        this.data = data;
-    }
-
-    public Empresa getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
 }
 
