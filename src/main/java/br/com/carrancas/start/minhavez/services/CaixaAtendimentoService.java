@@ -6,6 +6,10 @@ import br.com.carrancas.start.minhavez.entities.CaixaAtendimento;
 import br.com.carrancas.start.minhavez.repositories.CaixaAtendimentoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class CaixaAtendimentoService {
@@ -14,11 +18,15 @@ public class CaixaAtendimentoService {
 
     //Create read update delete (CRUD)
 
-    public CaixaAtendimentoResponseDTO criar (CaixaAtendimentoRequestDTO caixaAtendimentoRequestDTO){
+    public CaixaAtendimentoResponseDTO criar (CaixaAtendimentoRequestDTO caixaAtendimentoRequestDTO) {
         CaixaAtendimento caixaAtendimento = CaixaAtendimentoRequestDTO.toEntity(caixaAtendimentoRequestDTO);
         caixaAtendimentoRepository.save(caixaAtendimento);
-        return  CaixaAtendimentoResponseDTO.toDTO(caixaAtendimento);
+        return CaixaAtendimentoResponseDTO.toDTO(caixaAtendimento);
+    }
+        public List<CaixaAtendimentoResponseDTO> listaCaixaAtendimento(){
+                List<CaixaAtendimento> caixaAtendimenoList = caixaAtendimentoRepository.findAll();
+                return caixaAtendimenoList.stream().map(caixaAtendimento -> CaixaAtendimentoResponseDTO.toDTO(caixaAtendimento)).collect(Collectors.toList());
+        }
 
 
     }
-}
