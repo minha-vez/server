@@ -21,7 +21,7 @@ public class EmpresaController {
     }
 
     @GetMapping
-    public List<EmpresaResponseDTO> listarEmpresas (){
+    public List<EmpresaResponseDTO> listarEmpresas(){
         return empresaService.listarEmpresas();
     }
 }

@@ -4,14 +4,15 @@ import br.com.carrancas.start.minhavez.eums.Genero;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
 @Setter
+@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 public class Pessoa {
 
     @Id
@@ -28,7 +29,7 @@ public class Pessoa {
     private String telefone;
 
     @Column(nullable = false)
-    private Date nascimento;
+    private LocalDate nascimento;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

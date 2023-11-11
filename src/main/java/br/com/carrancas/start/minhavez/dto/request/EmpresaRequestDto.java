@@ -3,7 +3,7 @@ package br.com.carrancas.start.minhavez.dto.request;
 import br.com.carrancas.start.minhavez.entities.Empresa;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -19,12 +19,12 @@ public class EmpresaRequestDto {
     private String telefoneParaEmergencia;
     private String email;
     private String website;
-    private LocalDateTime horaInicio;
-    private LocalDateTime horaFinal;
+    private LocalTime horaInicio;
+    private LocalTime horaFinal;
     private Boolean status;
 
 
-    public static Empresa toEntity(EmpresaRequestDto empresaRequestDto){
+    public static Empresa toEntity(EmpresaRequestDto empresaRequestDto) {
         return Empresa.builder()
                 .cnpj(empresaRequestDto.getCnpj())
                 .nome(empresaRequestDto.getNome())

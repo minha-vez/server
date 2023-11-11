@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.time.LocalTime;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,8 +17,10 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
     private int ordem;
 
+    @Column(nullable = false)
     private LocalTime horaEntrada;
 
     @ManyToOne

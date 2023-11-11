@@ -25,9 +25,7 @@ public class EmpresaService {
     }
 
     public List<EmpresaResponseDTO> listarEmpresas(){
-        List<Empresa> empresas = empresaRepository.findAll();
-        return empresas.stream().map(empresa -> EmpresaResponseDTO.toDto(empresa)).collect(Collectors.toList());
-
-
+        List<Empresa> empresaList = empresaRepository.findAll();
+       return empresaList.stream().map(empresa -> EmpresaResponseDTO.toDto(empresa)).collect(Collectors.toList());
     }
 }
