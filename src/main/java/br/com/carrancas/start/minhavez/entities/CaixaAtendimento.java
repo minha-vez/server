@@ -1,10 +1,14 @@
 package br.com.carrancas.start.minhavez.entities;
 
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
 
+@Getter
+@Setter
 @Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class CaixaAtendimento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,41 +21,4 @@ public class CaixaAtendimento {
     @JoinColumn(name = "empresa_id", nullable = false)
     private Empresa empresa;
 
-
-    public CaixaAtendimento(Integer id, String nomeAtendente, boolean status, Empresa empresa) {
-        this.id = id;
-        this.nomeAtendente = nomeAtendente;
-        this.status = status;
-        this.empresa = empresa;
-    }
-
-    public CaixaAtendimento() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getNomeAtendente() {
-        return nomeAtendente;
-    }
-
-    public void setNomeAtendente(String nomeAtendente) {
-        this.nomeAtendente = nomeAtendente;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public Empresa getEmpresa() {
-        return empresa;
-    }
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
 }
