@@ -4,7 +4,7 @@ import br.com.carrancas.start.minhavez.entities.Pessoa;
 import br.com.carrancas.start.minhavez.eums.Genero;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -16,7 +16,7 @@ public class PessoaRequestDTO {
     private String nome;
     private String cpf;
     private String telefone;
-    private Date nascimento;
+    private LocalDate nascimento;
     private Genero genero;
 
     public static Pessoa toEntity(PessoaRequestDTO PessoaRequestDTO) {
