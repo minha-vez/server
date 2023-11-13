@@ -28,7 +28,6 @@ public class EmpresaRequestDto {
         return Empresa.builder()
                 .cnpj(empresaRequestDto.getCnpj())
                 .nome(empresaRequestDto.getNome())
-                .endereco(empresaRequestDto.getEndereco())
                 .telefone(empresaRequestDto.getTelefone())
                 .website(empresaRequestDto.getWebsite())
                 .telefoneParaEmergencia(empresaRequestDto.getTelefoneParaEmergencia())

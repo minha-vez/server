@@ -25,7 +25,6 @@ public class EmpresaResponseDTO {
     public static EmpresaResponseDTO toDto(Empresa empresa){
         return EmpresaResponseDTO.builder()
                 .nome(empresa.getNome())
-                .endereco(empresa.getEndereco())
                 .telefone(empresa.getTelefone())
                 .website(empresa.getWebsite())
                 .telefoneParaEmergencia(empresa.getTelefoneParaEmergencia())
