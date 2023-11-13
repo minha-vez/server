@@ -1,10 +1,7 @@
 package br.com.carrancas.start.minhavez.services;
 
-import br.com.carrancas.start.minhavez.dto.request.EmpresaRequestDto;
 import br.com.carrancas.start.minhavez.dto.request.TicketRequestDto;
-import br.com.carrancas.start.minhavez.dto.response.EmpresaResponseDTO;
 import br.com.carrancas.start.minhavez.dto.response.TicketResponseDto;
-import br.com.carrancas.start.minhavez.entities.Empresa;
 import br.com.carrancas.start.minhavez.entities.Ticket;
 import br.com.carrancas.start.minhavez.repositories.TicketRepository;
 import lombok.RequiredArgsConstructor;

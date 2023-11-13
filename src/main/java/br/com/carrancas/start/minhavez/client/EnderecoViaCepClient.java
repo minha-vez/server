@@ -1,5 +1,6 @@
 package br.com.carrancas.start.minhavez.client;
 
+import br.com.carrancas.start.minhavez.dto.response.EnderecoResponseDTO;
 import br.com.carrancas.start.minhavez.entities.Endereco;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface EnderecoViaCepClient {
 
     @GetMapping("/{cep}/json")
-    Endereco buscarViaCep(@PathVariable String cep);
+    EnderecoResponseDTO buscarViaCep(@PathVariable String cep);
 
 }
