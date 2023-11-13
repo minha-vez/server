@@ -28,9 +28,6 @@ public class Empresa {
     private String cnpj;
 
     @Column(nullable = false)
-    private String endereco;
-
-    @Column(nullable = false)
     private String telefone;
 
     private String telefoneParaEmergencia;
@@ -61,6 +58,7 @@ public class Empresa {
     @JsonBackReference
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Convenio> convenioList;
+
     @ManyToMany
     @JoinTable(name = "empresa_especialidade",
             joinColumns = @JoinColumn(name = "empresa_id"),
