@@ -5,12 +5,12 @@ import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Especialidade {
 
     @Id

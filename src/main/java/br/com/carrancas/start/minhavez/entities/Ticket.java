@@ -5,11 +5,11 @@ import lombok.*;
 
 import java.time.LocalTime;
 
-@Getter
-@Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Ticket {
 

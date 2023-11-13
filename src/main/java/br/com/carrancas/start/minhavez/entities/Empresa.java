@@ -9,12 +9,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Empresa {
 
     @Id
@@ -47,17 +47,20 @@ public class Empresa {
     @Column(nullable = false)
     private LocalTime horaFinal;
 
-    //Precisamos criar um campo com lista de Convenio que hospital aceita
-
     @Column(nullable = false)
     private Boolean status;
+
     @JsonBackReference
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CaixaAtendimento> caixaAtendimentoList;
+
     @JsonBackReference
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Fila> filaList;
 
+    @JsonBackReference
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Convenio> convenioList;
     @ManyToMany
     @JoinTable(name = "empresa_especialidade",
             joinColumns = @JoinColumn(name = "empresa_id"),
