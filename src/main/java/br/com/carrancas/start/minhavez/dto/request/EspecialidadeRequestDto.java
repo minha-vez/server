@@ -8,13 +8,13 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CaracteristicaRequestDto {
+public class EspecialidadeRequestDto {
 
     private String descricao;
 
-    public static Especialidade toEntity(CaracteristicaRequestDto caracteristicaDto) {
+    public static Especialidade toEntity(EspecialidadeRequestDto especialidadeDto) {
         return Especialidade.builder()
-                .descricao(caracteristicaDto.getDescricao())
+                .descricao(especialidadeDto.getDescricao())
                 .build();
 
     }

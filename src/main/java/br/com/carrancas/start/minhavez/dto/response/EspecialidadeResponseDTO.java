@@ -8,11 +8,11 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CaracteristicaResponseDTO {
+public class EspecialidadeResponseDTO {
     private String descricao;
 
-    public static CaracteristicaResponseDTO toDto(Especialidade especialidade) {
-        return CaracteristicaResponseDTO.builder()
+    public static EspecialidadeResponseDTO toDto(Especialidade especialidade) {
+        return EspecialidadeResponseDTO.builder()
                 .descricao(especialidade.getDescricao())
                 .build();
     }
