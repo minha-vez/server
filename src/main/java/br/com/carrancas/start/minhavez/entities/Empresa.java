@@ -55,6 +55,10 @@ public class Empresa {
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Fila> filaList;
 
+    @OneToOne(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(nullable = false)
+    private Endereco endereco;
+
     @JsonBackReference
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Convenio> convenioList;

@@ -38,6 +38,7 @@ public class Pessoa {
     private Ticket ticket;
 
     @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(nullable = false)
     private Endereco endereco;
 }
 

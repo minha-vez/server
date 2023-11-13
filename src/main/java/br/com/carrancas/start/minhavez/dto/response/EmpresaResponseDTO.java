@@ -13,7 +13,6 @@ import java.time.LocalTime;
 public class EmpresaResponseDTO {
 
     private String nome;
-    private String endereco;
     private String telefone;
     private String telefoneParaEmergencia;
     private String email;
