@@ -7,12 +7,12 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Fila {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
