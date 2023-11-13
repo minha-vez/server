@@ -22,6 +22,6 @@ public class EspecialidadeController {
     }
     @GetMapping
     public List<EspecialidadeResponseDTO> ListarEspecialidades (){
-        return especialidadeService.ListarEspecialidade();
+        return especialidadeService.listarEspecialidade();
     }
 }

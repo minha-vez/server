@@ -24,7 +24,7 @@ public class EspecialidadeService {
         especialidadeRepository.save(especialidade);
         return EspecialidadeResponseDTO.toDto(especialidade);
     }
-    public List<EspecialidadeResponseDTO> ListarEspecialidade(){
+    public List<EspecialidadeResponseDTO> listarEspecialidade(){
         List<Especialidade> especialidades = especialidadeRepository.findAll();
         return especialidades.stream().map(especialidade -> EspecialidadeResponseDTO.toDto(especialidade))
                 .collect(Collectors.toList());
