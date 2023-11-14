@@ -20,12 +20,8 @@ import java.util.stream.Collectors;
 public class EmpresaService {
 
     private final EmpresaRepository empresaRepository;
-
     private final EnderecoRepository enderecoRepository;
-
     private final EnderecoViaCepClient enderecoViaCepClient;
-
-    //Create Read Update Delete (CRUD)
 
     @Transactional
     public EmpresaResponseDTO criar (EmpresaNewRequestDto empresaNewRequestDto){
