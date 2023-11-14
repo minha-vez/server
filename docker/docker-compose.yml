@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:8
+    container_name: mysql_db
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - clientes-compose-network
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: carranca_db
+      MYSQL_ROOT_PASSWORD: abc123
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    networks:
+      - clientes-compose-network
+    ports:
+      - "8000:80"
+
+volumes:
+  dbdata:
+
+networks:
+  clientes-compose-network:
