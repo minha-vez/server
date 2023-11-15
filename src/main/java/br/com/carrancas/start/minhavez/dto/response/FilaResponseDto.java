@@ -10,12 +10,12 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FilaRespondeDto {
+public class FilaResponseDto {
 
     private LocalDate data;
 
-    public static FilaRespondeDto toDto( Fila fila) {
-        return FilaRespondeDto.builder()
+    public static FilaResponseDto toDto(Fila fila) {
+        return FilaResponseDto.builder()
                 .data(fila.getData()).build();
     }
 }
