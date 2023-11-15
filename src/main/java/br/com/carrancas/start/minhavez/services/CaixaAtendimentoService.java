@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 public class CaixaAtendimentoService {
 
     private final CaixaAtendimentoRepository caixaAtendimentoRepository;
-
     private final EmpresaRepository empresaRepository;
 
     public CaixaAtendimentoResponseDTO criar (int empresaId, CaixaAtendimentoRequestDTO caixaAtendimentoRequestDTO) {

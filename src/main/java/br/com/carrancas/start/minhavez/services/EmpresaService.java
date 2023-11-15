@@ -3,7 +3,7 @@ package br.com.carrancas.start.minhavez.services;
 import br.com.carrancas.start.minhavez.client.EnderecoViaCepClient;
 import br.com.carrancas.start.minhavez.dto.request.EmpresaNewRequestDto;
 import br.com.carrancas.start.minhavez.dto.response.EmpresaResponseDTO;
-import br.com.carrancas.start.minhavez.dto.response.EnderecoResponseDTO;
+import br.com.carrancas.start.minhavez.dto.request.EnderecoRequestDTO;
 import br.com.carrancas.start.minhavez.entities.Empresa;
 import br.com.carrancas.start.minhavez.entities.Endereco;
 import br.com.carrancas.start.minhavez.repositories.EmpresaRepository;
@@ -25,8 +25,8 @@ public class EmpresaService {
 
     @Transactional
     public EmpresaResponseDTO criar (EmpresaNewRequestDto empresaNewRequestDto){
-        EnderecoResponseDTO enderecoResponseDTO = enderecoViaCepClient.buscarViaCep(empresaNewRequestDto.getCep());
-        Endereco endereco = EnderecoResponseDTO.toEntity(enderecoResponseDTO);
+        EnderecoRequestDTO enderecoRequestDTO = enderecoViaCepClient.buscarViaCep(empresaNewRequestDto.getCep());
+        Endereco endereco = EnderecoRequestDTO.toEntity(enderecoRequestDTO);
         endereco.setNumero(empresaNewRequestDto.getNumero());
         Empresa empresa = EmpresaNewRequestDto.toEntity(empresaNewRequestDto);
         salvarEmpresaComEndereco(endereco, empresa);

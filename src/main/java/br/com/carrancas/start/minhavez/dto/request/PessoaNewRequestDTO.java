@@ -11,21 +11,23 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PessoaRequestDTO {
+public class PessoaNewRequestDTO {
 
     private String nome;
     private String cpf;
     private String telefone;
     private LocalDate nascimento;
     private Genero genero;
+    private String cep;
+    private String numero;
 
-    public static Pessoa toEntity(PessoaRequestDTO PessoaRequestDTO) {
+    public static Pessoa toEntity(PessoaNewRequestDTO PessoaNewRequestDTO) {
         return Pessoa.builder()
-                .nome(PessoaRequestDTO.getNome())
-                .cpf(PessoaRequestDTO.getCpf())
-                .telefone(PessoaRequestDTO.getTelefone())
-                .nascimento(PessoaRequestDTO.getNascimento())
-                .genero(PessoaRequestDTO.getGenero())
+                .nome(PessoaNewRequestDTO.getNome())
+                .cpf(PessoaNewRequestDTO.getCpf())
+                .telefone(PessoaNewRequestDTO.getTelefone())
+                .nascimento(PessoaNewRequestDTO.getNascimento())
+                .genero(PessoaNewRequestDTO.getGenero())
                 .build();
     }
 }
