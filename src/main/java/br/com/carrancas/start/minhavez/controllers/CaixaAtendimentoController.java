@@ -17,9 +17,9 @@ public class CaixaAtendimentoController {
 
     private final CaixaAtendimentoService caixaAtendimentoService;
 
-    @PostMapping("/criar")
-    public CaixaAtendimentoResponseDTO criar(@RequestBody CaixaAtendimentoRequestDTO caixaAtendimentoRequestDTO){
-        return caixaAtendimentoService.criar(caixaAtendimentoRequestDTO);
+    @PostMapping("/criar/empresa-id/{empresa}")
+    public CaixaAtendimentoResponseDTO criar(@PathVariable("empresa") int empresaId, @RequestBody CaixaAtendimentoRequestDTO caixaAtendimentoRequestDTO){
+        return caixaAtendimentoService.criar(empresaId, caixaAtendimentoRequestDTO);
     }
     @GetMapping
     public List<CaixaAtendimentoResponseDTO> listaCaixaAtendimento (){
