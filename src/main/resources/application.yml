@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/minha-vez_db?createDatabaseIfNotExist=true
-    username: ${USUARIO_BD}
-    password: ${SENHA_BD}
+    username: root
+    password:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
