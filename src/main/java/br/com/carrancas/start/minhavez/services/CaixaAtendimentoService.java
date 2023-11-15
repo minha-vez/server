@@ -3,11 +3,14 @@ package br.com.carrancas.start.minhavez.services;
 import br.com.carrancas.start.minhavez.dto.request.CaixaAtendimentoRequestDTO;
 import br.com.carrancas.start.minhavez.dto.response.CaixaAtendimentoResponseDTO;
 import br.com.carrancas.start.minhavez.entities.CaixaAtendimento;
+import br.com.carrancas.start.minhavez.entities.Empresa;
 import br.com.carrancas.start.minhavez.repositories.CaixaAtendimentoRepository;
+import br.com.carrancas.start.minhavez.repositories.EmpresaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -16,10 +19,12 @@ public class CaixaAtendimentoService {
 
     private final CaixaAtendimentoRepository caixaAtendimentoRepository;
 
-    //Create read update delete (CRUD)
+    private final EmpresaRepository empresaRepository;
 
-    public CaixaAtendimentoResponseDTO criar (CaixaAtendimentoRequestDTO caixaAtendimentoRequestDTO) {
+    public CaixaAtendimentoResponseDTO criar (int empresaId, CaixaAtendimentoRequestDTO caixaAtendimentoRequestDTO) {
+        Empresa empresa = empresaRepository.findById(empresaId).orElseThrow(()-> new RuntimeException("Empresa não encontrada"));
         CaixaAtendimento caixaAtendimento = CaixaAtendimentoRequestDTO.toEntity(caixaAtendimentoRequestDTO);
+        caixaAtendimento.setEmpresa(empresa);
         caixaAtendimentoRepository.save(caixaAtendimento);
         return CaixaAtendimentoResponseDTO.toDTO(caixaAtendimento);
     }
