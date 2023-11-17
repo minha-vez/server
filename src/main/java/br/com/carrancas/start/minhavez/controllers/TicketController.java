@@ -15,12 +15,13 @@ public class TicketController {
 
     private final TicketService ticketService;
 
-    @PostMapping("/criar")
+    @PostMapping
     public TicketResponseDto criar(@RequestBody TicketRequestDto ticketRequestDto) {
         return ticketService.criar(ticketRequestDto);
     }
+
     @GetMapping
-    public List<TicketResponseDto> listarTickets (){
+    public List<TicketResponseDto> listarTickets() {
         return ticketService.listarTicket();
     }
 

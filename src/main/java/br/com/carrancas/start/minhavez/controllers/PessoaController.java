@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/pessoa")
+@RequestMapping("/pessoas")
 @RequiredArgsConstructor
 @RestController
 public class PessoaController {
     private final PessoaService pessoaService;
 
-    @PostMapping("/criar")
-    public PessoaResponseDTO criar(@RequestBody PessoaNewRequestDTO pessoaNewRequestDTO){
+    @PostMapping
+    public PessoaResponseDTO criar(@RequestBody PessoaNewRequestDTO pessoaNewRequestDTO) {
         return pessoaService.criar(pessoaNewRequestDTO);
-
     }
+
     @GetMapping
-    public List<PessoaResponseDTO> listaPessoa(){
+    public List<PessoaResponseDTO> listarPessoas() {
         return pessoaService.listaPessoa();
     }
 

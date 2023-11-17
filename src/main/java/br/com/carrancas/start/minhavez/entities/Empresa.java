@@ -30,7 +30,8 @@ public class Empresa {
     @Column(nullable = false)
     private String telefone;
 
-    private String telefoneParaEmergencia;
+    @Column(name = "telefone_emergencia")
+    private String telefoneParaEmergencia; //refatorar
 
     @Column(nullable = false)
     private String email;

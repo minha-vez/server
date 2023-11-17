@@ -24,22 +24,30 @@ public class EmpresaService {
     private final EnderecoViaCepClient enderecoViaCepClient;
 
     @Transactional
-    public EmpresaResponseDTO criar (EmpresaNewRequestDto empresaNewRequestDto){
+    public EmpresaResponseDTO criar(EmpresaNewRequestDto empresaNewRequestDto) {
         EnderecoRequestDTO enderecoRequestDTO = enderecoViaCepClient.buscarViaCep(empresaNewRequestDto.getCep());
         Endereco endereco = EnderecoRequestDTO.toEntity(enderecoRequestDTO);
         endereco.setNumero(empresaNewRequestDto.getNumero());
         Empresa empresa = EmpresaNewRequestDto.toEntity(empresaNewRequestDto);
-        salvarEmpresaComEndereco(endereco, empresa);
+        salvarEmpresaEndereco(endereco, empresa);
         return EmpresaResponseDTO.toDto(empresa);
     }
-    private void salvarEmpresaComEndereco(Endereco endereco, Empresa empresa) {
+
+    private void salvarEmpresaEndereco(Endereco endereco, Empresa empresa) {
         endereco.setEmpresa(empresa);
         enderecoRepository.save(endereco);
         empresaRepository.save(empresa);
     }
 
-    public List<EmpresaResponseDTO> listarEmpresas(){
+    public List<EmpresaResponseDTO> listarEmpresas() {
         List<Empresa> empresaList = empresaRepository.findAll();
-       return empresaList.stream().map(empresa -> EmpresaResponseDTO.toDto(empresa)).collect(Collectors.toList());
+        return empresaList.stream()
+                .map(empresa -> EmpresaResponseDTO.toDto(empresa))
+                .collect(Collectors.toList());
+    }
+
+    public Empresa getEmpresa(int empresaId) {
+        return empresaRepository.findById(empresaId)
+                .orElseThrow(() -> new RuntimeException("Empresa não encontrada"));
     }
 }

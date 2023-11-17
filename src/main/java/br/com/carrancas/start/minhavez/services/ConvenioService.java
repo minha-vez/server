@@ -14,13 +14,14 @@ import org.springframework.stereotype.Service;
 public class ConvenioService {
 
     private final ConvenioRepository convenioRepository;
-    private final EmpresaRepository empresaRepository;
+    private final EmpresaService empresaService;
 
     public ConvenioResponseDto criar(int empresaId, ConvenioRequestDto convenioRequestDto) {
-        Empresa empresa = empresaRepository.findById(empresaId).orElseThrow(() -> new RuntimeException("Empresa não encontrada!"));
+        Empresa empresa = empresaService.getEmpresa(empresaId);
         Convenio convenio = ConvenioRequestDto.toEntity(convenioRequestDto);
         convenio.setEmpresa(empresa);
         convenioRepository.save(convenio);
         return ConvenioResponseDto.toDto(convenio);
     }
+
 }
