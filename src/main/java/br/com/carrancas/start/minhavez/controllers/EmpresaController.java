@@ -15,7 +15,7 @@ public class EmpresaController {
 
     private final EmpresaService empresaService;
 
-    @PostMapping("/criar")
+    @PostMapping
     public EmpresaResponseDTO criar(@RequestBody EmpresaNewRequestDto empresaNewRequestDto){
         return empresaService.criar(empresaNewRequestDto);
     }

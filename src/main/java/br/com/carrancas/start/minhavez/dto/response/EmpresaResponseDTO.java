@@ -14,7 +14,7 @@ public class EmpresaResponseDTO {
 
     private String nome;
     private String telefone;
-    private String telefoneParaEmergencia;
+    private String telefoneParaEmergencia; //refatorar
     private String email;
     private String website;
     private LocalTime horaInicio;

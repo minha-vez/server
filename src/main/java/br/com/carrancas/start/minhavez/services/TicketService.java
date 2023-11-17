@@ -15,15 +15,17 @@ import java.util.stream.Collectors;
 public class TicketService {
 
     private final TicketRepository ticketRepository;
+
     public TicketResponseDto criar(TicketRequestDto ticketRequestDto) {
         Ticket ticket = TicketRequestDto.toEntity(ticketRequestDto);
         ticketRepository.save(ticket);
         return TicketResponseDto.toDto(ticket);
     }
 
-    public List<TicketResponseDto> listarTicket(){
-        List<Ticket> tickets = ticketRepository.findAll();
-        return tickets.stream().map(empresa -> TicketResponseDto.toDto(empresa)).collect(Collectors.toList());
+    public List<TicketResponseDto> listarTicket() {
+        return ticketRepository.findAll().stream()
+                .map(empresa -> TicketResponseDto.toDto(empresa))
+                .collect(Collectors.toList());
     }
 
 }
