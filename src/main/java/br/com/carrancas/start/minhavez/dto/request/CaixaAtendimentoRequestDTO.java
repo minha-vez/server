@@ -14,7 +14,7 @@ public class CaixaAtendimentoRequestDTO {
 
     public static CaixaAtendimento toEntity(CaixaAtendimentoRequestDTO caixaAtendimentoDTO) {
         return CaixaAtendimento.builder()
-                .nomeAtendente(caixaAtendimentoDTO.getNomeAtendente())
+                .nomeCaixa(caixaAtendimentoDTO.getNomeAtendente())
                 .status(caixaAtendimentoDTO.isStatus())
                 .build();
     }

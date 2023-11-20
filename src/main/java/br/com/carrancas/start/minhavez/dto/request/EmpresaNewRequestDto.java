@@ -22,7 +22,6 @@ public class EmpresaNewRequestDto {
     private String website;
     private LocalTime horaInicio;
     private LocalTime horaFinal;
-    private Boolean status;
 
 
     public static Empresa toEntity(EmpresaNewRequestDto empresaNewRequestDto) {
@@ -36,7 +35,6 @@ public class EmpresaNewRequestDto {
                 .website(empresaNewRequestDto.getWebsite())
                 .horaInicio(empresaNewRequestDto.getHoraInicio())
                 .horaFinal(empresaNewRequestDto.getHoraFinal())
-                .status(Boolean.TRUE)
                 .build();
     }
 

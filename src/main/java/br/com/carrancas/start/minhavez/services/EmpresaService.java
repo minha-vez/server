@@ -42,12 +42,24 @@ public class EmpresaService {
     public List<EmpresaResponseDTO> listarEmpresas() {
         List<Empresa> empresaList = empresaRepository.findAll();
         return empresaList.stream()
+                .filter(empresa -> empresa.getStatus().equals(Boolean.TRUE))
                 .map(empresa -> EmpresaResponseDTO.toDto(empresa))
                 .collect(Collectors.toList());
     }
 
     public Empresa getEmpresa(int empresaId) {
-        return empresaRepository.findById(empresaId)
+        Empresa empresa = empresaRepository.findById(empresaId)
                 .orElseThrow(() -> new RuntimeException("Empresa não encontrada"));
+
+        if (empresa.getStatus() == Boolean.FALSE) {
+            throw new RuntimeException("Empresa desativada");
+        }
+        return empresa;
+    }
+
+    public void deletarEmpresa(int empresaId){
+        Empresa empresa = getEmpresa(empresaId);
+        empresa.setStatus(Boolean.FALSE);
+        empresaRepository.save(empresa);
     }
 }
