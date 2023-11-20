@@ -46,7 +46,8 @@ public class Empresa {
     private LocalTime horaFinal;
 
     @Column(nullable = false)
-    private Boolean status;
+    @Builder.Default
+    private Boolean status = Boolean.TRUE;
 
     @JsonBackReference
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

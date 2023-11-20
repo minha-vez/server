@@ -24,6 +24,11 @@ public class EmpresaController {
     public List<EmpresaResponseDTO> listarEmpresas(){
         return empresaService.listarEmpresas();
     }
+
+    @DeleteMapping("/{empresaId}")
+    public void deletarEmpresa(@PathVariable int empresaId){
+        empresaService.deletarEmpresa(empresaId);
+    }
 }
 
 
