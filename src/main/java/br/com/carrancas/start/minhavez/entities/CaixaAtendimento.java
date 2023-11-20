@@ -10,12 +10,13 @@ import lombok.*;
 @Setter
 @Entity
 public class CaixaAtendimento {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
-    private String nomeAtendente;
+    private String nomeCaixa;
 
     @Column(nullable = false)
     private boolean status;

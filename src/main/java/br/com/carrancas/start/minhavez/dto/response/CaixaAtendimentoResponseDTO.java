@@ -15,7 +15,7 @@ public class CaixaAtendimentoResponseDTO {
 
     public  static  CaixaAtendimentoResponseDTO toDTO(CaixaAtendimento caixaAtendimento){
         return CaixaAtendimentoResponseDTO.builder()
-                .nomeAtendente(caixaAtendimento.getNomeAtendente())
+                .nomeAtendente(caixaAtendimento.getNomeCaixa())
                 .status(caixaAtendimento.isStatus())
                 .build();
     }
