@@ -1,5 +1,6 @@
 package br.com.carrancas.start.minhavez.entities;
 
+import br.com.carrancas.start.minhavez.eums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,8 +21,16 @@ public class Ticket {
     @Column(nullable = false)
     private int ordem;
 
+    @Builder.Default
     @Column(nullable = false)
-    private LocalTime horaEntrada;
+    private LocalTime horaEntrada = LocalTime.now();
+
+    private LocalTime horaEncerramento;
+
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    @Column(nullable = false)
+    private Status statusAtendimento = Status.ESPERA;
 
     @ManyToOne
     @JoinColumn(name = "fila_id")

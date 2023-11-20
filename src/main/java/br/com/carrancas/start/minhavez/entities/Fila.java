@@ -17,8 +17,12 @@ public class Fila {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(nullable = false)
     private LocalDate data;
+
+    @Column(nullable = false)
+    private Boolean preferencial;
     @ManyToOne
     @JoinColumn(name = "empresa_id", nullable = false)
     private Empresa empresa;

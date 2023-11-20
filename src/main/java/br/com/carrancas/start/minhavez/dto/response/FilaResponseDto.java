@@ -13,9 +13,12 @@ import java.time.LocalDate;
 public class FilaResponseDto {
 
     private LocalDate data;
+    private Boolean presencial;
 
     public static FilaResponseDto toDto(Fila fila) {
         return FilaResponseDto.builder()
-                .data(fila.getData()).build();
+                .data(fila.getData())
+                .presencial(fila.getPreferencial())
+                .build();
     }
 }
