@@ -38,7 +38,13 @@ public class PessoaService {
         enderecoRepository.save(endereco);
     }
 
-    public List<PessoaResponseDTO> listaPessoa() {
+    public Pessoa getPessoa(int pessoaId) {
+        return pessoaRepository.findById(pessoaId)
+                .orElseThrow(() -> new RuntimeException("Pessoa não encontrada"));
+
+    }
+
+    public List<PessoaResponseDTO> listarPessoa() {
         List<Pessoa> pessoaList = pessoaRepository.findAll();
         return pessoaList.stream()
                 .map(pessoa -> PessoaResponseDTO.toDto(pessoa))

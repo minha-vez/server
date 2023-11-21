@@ -4,6 +4,7 @@ import br.com.carrancas.start.minhavez.eums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @AllArgsConstructor
@@ -23,6 +24,10 @@ public class Ticket {
 
     @Builder.Default
     @Column(nullable = false)
+    private LocalDate dataCriacao = LocalDate.now();
+
+    @Builder.Default
+    @Column(nullable = false)
     private LocalTime horaEntrada = LocalTime.now();
 
     private LocalTime horaEncerramento;
@@ -39,6 +44,4 @@ public class Ticket {
     @OneToOne
     @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
-
-
 }
