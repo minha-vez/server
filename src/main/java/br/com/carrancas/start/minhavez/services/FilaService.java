@@ -19,4 +19,9 @@ public class FilaService {
         return FilaResponseDto.toDto(fila);
     }
 
+    public Fila getFila(int filaId){
+        return filaRepository.findById(filaId)
+                .orElseThrow(() -> new RuntimeException("Fila não encontrada"));
+    }
+
 }

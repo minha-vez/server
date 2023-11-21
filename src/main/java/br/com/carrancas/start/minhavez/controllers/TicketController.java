@@ -15,9 +15,9 @@ public class TicketController {
 
     private final TicketService ticketService;
 
-    @PostMapping
-    public TicketResponseDto criar(@RequestBody TicketRequestDto ticketRequestDto) {
-        return ticketService.criar(ticketRequestDto);
+    @PostMapping("/pessoa/{pessoaId}/fila/{filaId}")
+    public TicketResponseDto criar(int pessoaId, int filaId) {
+        return ticketService.criar(pessoaId, filaId);
     }
 
     @GetMapping
