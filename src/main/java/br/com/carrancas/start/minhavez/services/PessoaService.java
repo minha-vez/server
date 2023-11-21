@@ -38,7 +38,7 @@ public class PessoaService {
         enderecoRepository.save(endereco);
     }
 
-    public Pessoa getPessoa(int pessoaId){
+    public Pessoa getPessoa(int pessoaId) {
         return pessoaRepository.findById(pessoaId)
                 .orElseThrow(() -> new RuntimeException("Pessoa não encontrada"));
 

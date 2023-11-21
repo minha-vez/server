@@ -16,7 +16,7 @@ public class TicketController {
     private final TicketService ticketService;
 
     @PostMapping("/pessoa/{pessoaId}/fila/{filaId}")
-    public TicketResponseDto criar(int pessoaId, int filaId) {
+    public TicketResponseDto criar(@PathVariable("pessoaId") int pessoaId, @PathVariable("filaId") int filaId) {
         return ticketService.criar(pessoaId, filaId);
     }
 

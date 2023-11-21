@@ -18,8 +18,9 @@ public class Fila {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Builder.Default
     @Column(nullable = false)
-    private LocalDate data;
+    private LocalDate data = LocalDate.now();
 
     @Column(nullable = false)
     private Boolean preferencial;

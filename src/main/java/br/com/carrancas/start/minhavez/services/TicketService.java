@@ -29,18 +29,23 @@ public class TicketService {
 
         int ordem = 1;
         LocalDate dataAtual = LocalDate.now();
-        if(!fila.getData().equals(dataAtual)){
+
+        if (!fila.getData().equals(dataAtual)) {
             ticket.setOrdem(ordem);
-        }else{
-            Ticket ultimoTicket =
-                    ticketRepository.findFirstByFilaEmpresaIdOrderByDataCriacaoDesc(fila.getEmpresa().getId())
-                            .orElseThrow(() -> new RuntimeException("Nenhum ticket registrado no banco de dados"));
-            int ultimaOrdem = ultimoTicket.getOrdem();
-            ordem = ultimaOrdem + 1;
+        } else {
+            Ticket ultimoTicket = ticketRepository.findFirstByFilaEmpresaIdOrderByDataCriacaoDesc(fila.getEmpresa().getId())
+                    .orElse(null);
+
+            if (ultimoTicket != null) {
+                int ultimaOrdem = ultimoTicket.getOrdem();
+                ordem = ultimaOrdem + 1;
+            }
             ticket.setOrdem(ordem);
         }
+        ticketRepository.save(ticket);
         return TicketResponseDto.toDto(ticket);
     }
+
 
     public List<TicketResponseDto> listarTicket() {
         return ticketRepository.findAll().stream()

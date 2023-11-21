@@ -12,12 +12,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class FilaRequestDto {
 
-    private LocalDate data;
     private Boolean preferencial;
 
     public static Fila toEntity(FilaRequestDto filaRequestDto) {
         return Fila.builder()
-                .data(filaRequestDto.getData())
                 .preferencial(filaRequestDto.getPreferencial())
                 .build();
     }
