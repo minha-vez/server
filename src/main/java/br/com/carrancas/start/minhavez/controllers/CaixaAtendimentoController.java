@@ -4,6 +4,7 @@ import br.com.carrancas.start.minhavez.dto.request.CaixaAtendimentoRequestDTO;
 import br.com.carrancas.start.minhavez.dto.response.CaixaAtendimentoResponseDTO;
 import br.com.carrancas.start.minhavez.services.CaixaAtendimentoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class CaixaAtendimentoController {
 
     private final CaixaAtendimentoService caixaAtendimentoService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/empresa/{empresaId}")
     public CaixaAtendimentoResponseDTO criar(
             @PathVariable("empresaId") int empresaId,
@@ -23,6 +25,7 @@ public class CaixaAtendimentoController {
         return caixaAtendimentoService.criar(empresaId, caixaAtendimentoRequestDTO);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<CaixaAtendimentoResponseDTO> listaCaixaAtendimento() {
         return caixaAtendimentoService.listaCaixaAtendimento();
