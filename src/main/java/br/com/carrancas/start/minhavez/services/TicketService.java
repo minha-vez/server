@@ -69,7 +69,7 @@ public class TicketService {
 
     public List<TicketResponseDto> listarTicket() {
         return ticketRepository.findAll().stream()
-                .map(empresa -> TicketResponseDto.toDto(empresa))
+                .map(ticket -> TicketResponseDto.toDto(ticket))
                 .collect(Collectors.toList());
     }
 
