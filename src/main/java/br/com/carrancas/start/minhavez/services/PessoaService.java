@@ -24,6 +24,7 @@ public class PessoaService {
 
     @Transactional
     public PessoaResponseDTO criar(PessoaNewRequestDTO pessoaNewRequestDTO) {
+        // TODO criar um DTO para criar pessoa, e dentro dele pegar os campos password e email, e salvar usuario e pessoa ao mesmo tempo
         EnderecoRequestDTO enderecoRequestDTO = enderecoViaCepClient.buscarViaCep(pessoaNewRequestDTO.getCep());
         Endereco endereco = EnderecoRequestDTO.toEntity(enderecoRequestDTO);
         endereco.setNumero(pessoaNewRequestDTO.getNumero());
@@ -38,8 +39,8 @@ public class PessoaService {
         enderecoRepository.save(endereco);
     }
 
-    public Pessoa getPessoa(int pessoaId) {
-        return pessoaRepository.findById(pessoaId)
+    public Pessoa getPessoa(String email) {
+        return pessoaRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Pessoa não encontrada"));
 
     }

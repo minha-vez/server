@@ -5,6 +5,7 @@ import br.com.carrancas.start.minhavez.dto.response.EmpresaResponseDTO;
 import br.com.carrancas.start.minhavez.services.EmpresaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class EmpresaController {
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyRole('FUNCIONARIO')")
     @GetMapping
     public List<EmpresaResponseDTO> listarEmpresas(){
         return empresaService.listarEmpresas();

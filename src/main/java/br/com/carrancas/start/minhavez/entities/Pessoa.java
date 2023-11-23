@@ -22,6 +22,9 @@ public class Pessoa {
     private String nome;
 
     @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false, unique = true)
     private String cpf;
 
     @Column(unique = true)
