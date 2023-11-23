@@ -2,6 +2,7 @@ package br.com.carrancas.start.minhavez.services;
 
 import br.com.carrancas.start.minhavez.client.EnderecoViaCepClient;
 import br.com.carrancas.start.minhavez.dto.request.EmpresaNewRequestDto;
+import br.com.carrancas.start.minhavez.dto.response.EmpresaResponseClienteDTO;
 import br.com.carrancas.start.minhavez.dto.response.EmpresaResponseDTO;
 import br.com.carrancas.start.minhavez.dto.request.EnderecoRequestDTO;
 import br.com.carrancas.start.minhavez.entities.Empresa;
@@ -86,6 +87,12 @@ public class EmpresaService {
             throw new EmpresaDesativadaException();
         }
         return empresa;
+    }
+
+    public EmpresaResponseClienteDTO buscarEmpresaById (int empresaId){
+        Empresa empresa = getEmpresa(empresaId);
+        return EmpresaResponseClienteDTO.toDto(empresa);
+
     }
 
     public void deletarEmpresa(int empresaId){
