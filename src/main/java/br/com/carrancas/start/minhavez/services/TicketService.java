@@ -5,10 +5,10 @@ import br.com.carrancas.start.minhavez.dto.response.TicketResponseDto;
 import br.com.carrancas.start.minhavez.entities.Fila;
 import br.com.carrancas.start.minhavez.entities.Pessoa;
 import br.com.carrancas.start.minhavez.entities.Ticket;
+import br.com.carrancas.start.minhavez.eums.Status;
 import br.com.carrancas.start.minhavez.repositories.TicketRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -16,6 +16,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -55,7 +56,8 @@ public class TicketService {
         if (!fila.getData().equals(dataAtual)) {
             ticket.setOrdem(ordem);
         } else {
-            Ticket ultimoTicket = ticketRepository.findFirstByFilaEmpresaIdOrderByDataCriacaoDesc(fila.getEmpresa().getId())
+            Ticket ultimoTicket = ticketRepository
+                    .findFirstByFilaEmpresaIdOrderByDataCriacaoDesc(fila.getEmpresa().getId())
                     .orElse(null);
 
             if (ultimoTicket != null) {
@@ -64,6 +66,13 @@ public class TicketService {
             }
             ticket.setOrdem(ordem);
         }
+    }
+
+    public void cancelarTicket(int ticketId) {
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(()-> new RuntimeException("Ticket não encontrado"));
+        if (ticket.getStatusAtendimento().equals(Status.ESPERA))
+            ticket.setStatusAtendimento(Status.CANCELADO);
     }
 
 
