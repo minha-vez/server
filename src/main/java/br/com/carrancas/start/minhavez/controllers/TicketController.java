@@ -1,10 +1,13 @@
 package br.com.carrancas.start.minhavez.controllers;
 
-import br.com.carrancas.start.minhavez.dto.request.TicketRequestDto;
 import br.com.carrancas.start.minhavez.dto.response.TicketResponseDto;
 import br.com.carrancas.start.minhavez.services.TicketService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.access.prepost.PreAuthorize;
+
+import org.springframework.http.HttpStatus;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,10 +25,10 @@ public class TicketController {
         return ticketService.criar(filaId);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN')")
     public List<TicketResponseDto> listarTickets() {
         return ticketService.listarTicket();
     }
-
 }
