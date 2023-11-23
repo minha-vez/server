@@ -52,4 +52,15 @@ public class RestExceptionHandler {
                 .mensagemDesenvolvedor(ex.getClass().getName())
                 .build(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(EmpresaDesativadaException.class)
+    private ResponseEntity<ExceptionDetails> handlerEmpresaDesativadaException(EmpresaDesativadaException ex) {
+        return new ResponseEntity<>(ExceptionDetails.builder()
+                .dataHora(LocalDateTime.now())
+                .status(ex.getStatusCode().value())
+                .titulo("Not Found Exception, Check a Documentação")
+                .detalhes(ex.getMessage())
+                .mensagemDesenvolvedor(ex.getClass().getName())
+                .build(), HttpStatus.BAD_REQUEST);
+    }
 }
