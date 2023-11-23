@@ -6,6 +6,7 @@ import br.com.carrancas.start.minhavez.dto.response.EmpresaResponseDTO;
 import br.com.carrancas.start.minhavez.dto.request.EnderecoRequestDTO;
 import br.com.carrancas.start.minhavez.entities.Empresa;
 import br.com.carrancas.start.minhavez.entities.Endereco;
+import br.com.carrancas.start.minhavez.exception.CepInvalidoException;
 import br.com.carrancas.start.minhavez.exception.CnpjExistenteException;
 import br.com.carrancas.start.minhavez.repositories.EmpresaRepository;
 import br.com.carrancas.start.minhavez.repositories.EnderecoRepository;
@@ -30,8 +31,8 @@ public class EmpresaService {
             throw new CnpjExistenteException();
         }
         EnderecoRequestDTO enderecoRequestDTO = enderecoViaCepClient.buscarViaCep(empresaNewRequestDto.getCep());
-        if (enderecoRequestDTO == null) {
-            throw new IllegalArgumentException("CEP inválido ou não encontrado");
+        if (enderecoRequestDTO.getLogradouro() == null || enderecoRequestDTO.getLocalidade() == null) {
+            throw new CepInvalidoException();
         }
         Endereco endereco = EnderecoRequestDTO.toEntity(enderecoRequestDTO);
         endereco.setNumero(empresaNewRequestDto.getNumero());

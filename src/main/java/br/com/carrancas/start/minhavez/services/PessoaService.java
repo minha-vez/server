@@ -6,6 +6,7 @@ import br.com.carrancas.start.minhavez.dto.request.PessoaNewRequestDTO;
 import br.com.carrancas.start.minhavez.dto.response.PessoaResponseDTO;
 import br.com.carrancas.start.minhavez.entities.Endereco;
 import br.com.carrancas.start.minhavez.entities.Pessoa;
+import br.com.carrancas.start.minhavez.exception.CepInvalidoException;
 import br.com.carrancas.start.minhavez.repositories.EnderecoRepository;
 import br.com.carrancas.start.minhavez.repositories.PessoaRepository;
 import jakarta.transaction.Transactional;
@@ -26,6 +27,9 @@ public class PessoaService {
     public PessoaResponseDTO criar(PessoaNewRequestDTO pessoaNewRequestDTO) {
         // TODO criar um DTO para criar pessoa, e dentro dele pegar os campos password e email, e salvar usuario e pessoa ao mesmo tempo
         EnderecoRequestDTO enderecoRequestDTO = enderecoViaCepClient.buscarViaCep(pessoaNewRequestDTO.getCep());
+        if (enderecoRequestDTO.getLogradouro() == null || enderecoRequestDTO.getLocalidade() == null) {
+            throw new CepInvalidoException();
+        }
         Endereco endereco = EnderecoRequestDTO.toEntity(enderecoRequestDTO);
         endereco.setNumero(pessoaNewRequestDTO.getNumero());
         Pessoa pessoa = PessoaNewRequestDTO.toEntity(pessoaNewRequestDTO);
