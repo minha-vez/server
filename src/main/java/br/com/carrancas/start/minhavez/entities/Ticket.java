@@ -32,6 +32,10 @@ public class Ticket {
 
     private LocalTime horaEncerramento;
 
+    @OneToOne
+    @JoinColumn(name = "caixa_atendimento_id")
+    private CaixaAtendimento caixaAtendimento;
+
     @Enumerated(EnumType.STRING)
     @Builder.Default
     @Column(nullable = false)
