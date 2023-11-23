@@ -32,7 +32,6 @@ public class EmpresaNewRequestDto {
                 .website(empresaNewRequestDto.getWebsite())
                 .telefoneParaEmergencia(empresaNewRequestDto.getTelefoneParaEmergencia())
                 .email(empresaNewRequestDto.getEmail())
-                .website(empresaNewRequestDto.getWebsite())
                 .horaInicio(empresaNewRequestDto.getHoraInicio())
                 .horaFinal(empresaNewRequestDto.getHoraFinal())
                 .build();

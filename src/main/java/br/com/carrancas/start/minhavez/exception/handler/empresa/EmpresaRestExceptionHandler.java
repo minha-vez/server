@@ -1,4 +1,4 @@
-package br.com.carrancas.start.minhavez.exception.handler;
+package br.com.carrancas.start.minhavez.exception.handler.empresa;
 
 import br.com.carrancas.start.minhavez.exception.*;
 import org.springframework.http.HttpStatus;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.LocalDateTime;
 
 @ControllerAdvice
-public class RestExceptionHandler {
+public class EmpresaRestExceptionHandler {
 
     @ExceptionHandler(CnpjExistenteException.class)
     private ResponseEntity<ExceptionDetails> handlerCnpjExistenteException(CnpjExistenteException ex) {
@@ -50,7 +50,7 @@ public class RestExceptionHandler {
                 .titulo("Not Found Exception, Check a Documentação")
                 .detalhes(ex.getMessage())
                 .mensagemDesenvolvedor(ex.getClass().getName())
-                .build(), HttpStatus.BAD_REQUEST);
+                .build(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(EmpresaDesativadaException.class)
@@ -61,6 +61,6 @@ public class RestExceptionHandler {
                 .titulo("Not Found Exception, Check a Documentação")
                 .detalhes(ex.getMessage())
                 .mensagemDesenvolvedor(ex.getClass().getName())
-                .build(), HttpStatus.BAD_REQUEST);
+                .build(), HttpStatus.NOT_FOUND);
     }
 }
