@@ -16,7 +16,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -76,8 +75,9 @@ public class TicketService {
     }
 
 
-    public List<TicketResponseDto> listarTicket() {
+    public List<TicketResponseDto> listarTicketByFila(int filaId) {
         return ticketRepository.findAll().stream()
+                .filter(ticket -> ticket.getFila().getId() == filaId)
                 .map(ticket -> TicketResponseDto.toDto(ticket))
                 .collect(Collectors.toList());
     }
