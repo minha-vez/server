@@ -33,7 +33,7 @@ public class Empresa {
     @Column(name = "telefone_emergencia")
     private String telefoneParaEmergencia; //refatorar
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
