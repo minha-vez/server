@@ -16,18 +16,20 @@ public class PessoaNewRequestDTO {
     private String nome;
     private String cpf;
     private String telefone;
+    private String email;
     private LocalDate nascimento;
     private Genero genero;
     private String cep;
     private String numero;
 
-    public static Pessoa toEntity(PessoaNewRequestDTO PessoaNewRequestDTO) {
+    public static Pessoa toEntity(PessoaNewRequestDTO pessoaNewRequestDTO) {
         return Pessoa.builder()
-                .nome(PessoaNewRequestDTO.getNome())
-                .cpf(PessoaNewRequestDTO.getCpf())
-                .telefone(PessoaNewRequestDTO.getTelefone())
-                .nascimento(PessoaNewRequestDTO.getNascimento())
-                .genero(PessoaNewRequestDTO.getGenero())
+                .nome(pessoaNewRequestDTO.getNome())
+                .cpf(pessoaNewRequestDTO.getCpf())
+                .telefone(pessoaNewRequestDTO.getTelefone())
+                .nascimento(pessoaNewRequestDTO.getNascimento())
+                .genero(pessoaNewRequestDTO.getGenero())
+                .email(pessoaNewRequestDTO.getEmail())
                 .build();
     }
 }

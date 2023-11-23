@@ -14,12 +14,16 @@ public class TicketResponseDto {
 
     private int ordem;
     private LocalTime horaEntrada;
+    private String nomePessoa;
+    private String nomeEmpresa;
 
 
     public static TicketResponseDto toDto(Ticket ticket) {
         return TicketResponseDto.builder()
                 .ordem(ticket.getOrdem())
-                .horaEntrada(ticket.getHoraEntrada()).build();
+                .horaEntrada(ticket.getHoraEntrada())
+                .nomePessoa(ticket.getPessoa().getNome())
+                .nomeEmpresa(ticket.getFila().getEmpresa().getNome()).build();
 
     }
 
