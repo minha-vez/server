@@ -8,6 +8,7 @@ import br.com.carrancas.start.minhavez.entities.Empresa;
 import br.com.carrancas.start.minhavez.entities.Endereco;
 import br.com.carrancas.start.minhavez.exception.CepInvalidoException;
 import br.com.carrancas.start.minhavez.exception.CnpjExistenteException;
+import br.com.carrancas.start.minhavez.exception.EmailExistenteException;
 import br.com.carrancas.start.minhavez.repositories.EmpresaRepository;
 import br.com.carrancas.start.minhavez.repositories.EnderecoRepository;
 import jakarta.transaction.Transactional;
@@ -27,18 +28,41 @@ public class EmpresaService {
 
     @Transactional
     public EmpresaResponseDTO criar(EmpresaNewRequestDto empresaNewRequestDto) {
-        if(empresaRepository.existsByCnpj(empresaNewRequestDto.getCnpj())){
+        validarCnpjNaoExistente(empresaNewRequestDto.getCnpj());
+        validarEmailNaoExistente(empresaNewRequestDto.getEmail());
+        validarEndereco(empresaNewRequestDto.getCep());
+
+        Endereco endereco = criarEndereco(empresaNewRequestDto);
+        Empresa empresa = EmpresaNewRequestDto.toEntity(empresaNewRequestDto);
+        salvarEmpresaEndereco(endereco, empresa);
+
+        return EmpresaResponseDTO.toDto(empresa);
+    }
+
+    private void validarCnpjNaoExistente(String cnpj) {
+        if (empresaRepository.existsByCnpj(cnpj)) {
             throw new CnpjExistenteException();
         }
-        EnderecoRequestDTO enderecoRequestDTO = enderecoViaCepClient.buscarViaCep(empresaNewRequestDto.getCep());
+    }
+
+    private void validarEmailNaoExistente(String email) {
+        if (empresaRepository.existsByEmail(email)) {
+            throw new EmailExistenteException();
+        }
+    }
+
+    private void validarEndereco(String cep) {
+        EnderecoRequestDTO enderecoRequestDTO = enderecoViaCepClient.buscarViaCep(cep);
         if (enderecoRequestDTO.getLogradouro() == null || enderecoRequestDTO.getLocalidade() == null) {
             throw new CepInvalidoException();
         }
+    }
+
+    private Endereco criarEndereco(EmpresaNewRequestDto empresaNewRequestDto) {
+        EnderecoRequestDTO enderecoRequestDTO = enderecoViaCepClient.buscarViaCep(empresaNewRequestDto.getCep());
         Endereco endereco = EnderecoRequestDTO.toEntity(enderecoRequestDTO);
         endereco.setNumero(empresaNewRequestDto.getNumero());
-        Empresa empresa = EmpresaNewRequestDto.toEntity(empresaNewRequestDto);
-        salvarEmpresaEndereco(endereco, empresa);
-        return EmpresaResponseDTO.toDto(empresa);
+        return endereco;
     }
 
     private void salvarEmpresaEndereco(Endereco endereco, Empresa empresa) {
@@ -46,6 +70,7 @@ public class EmpresaService {
         enderecoRepository.save(endereco);
         empresaRepository.save(empresa);
     }
+
 
     public List<EmpresaResponseDTO> listarEmpresas() {
         List<Empresa> empresaList = empresaRepository.findAll();
