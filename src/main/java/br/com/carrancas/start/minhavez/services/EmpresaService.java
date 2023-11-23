@@ -9,6 +9,7 @@ import br.com.carrancas.start.minhavez.entities.Endereco;
 import br.com.carrancas.start.minhavez.exception.CepInvalidoException;
 import br.com.carrancas.start.minhavez.exception.CnpjExistenteException;
 import br.com.carrancas.start.minhavez.exception.EmailExistenteException;
+import br.com.carrancas.start.minhavez.exception.EmpresaNotFoundException;
 import br.com.carrancas.start.minhavez.repositories.EmpresaRepository;
 import br.com.carrancas.start.minhavez.repositories.EnderecoRepository;
 import jakarta.transaction.Transactional;
@@ -82,7 +83,7 @@ public class EmpresaService {
 
     public Empresa getEmpresa(int empresaId) {
         Empresa empresa = empresaRepository.findById(empresaId)
-                .orElseThrow(() -> new RuntimeException("Empresa não encontrada"));
+                .orElseThrow(() -> new EmpresaNotFoundException());
 
         if (empresa.getStatus() == Boolean.FALSE) {
             throw new RuntimeException("Empresa desativada");
