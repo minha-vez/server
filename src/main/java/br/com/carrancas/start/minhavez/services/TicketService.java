@@ -3,7 +3,7 @@ package br.com.carrancas.start.minhavez.services;
 import br.com.carrancas.start.minhavez.config.JwtService;
 import br.com.carrancas.start.minhavez.dto.response.TicketResponseDto;
 import br.com.carrancas.start.minhavez.entities.Fila;
-import br.com.carrancas.start.minhavez.entities.Pessoa;
+import br.com.carrancas.start.minhavez.entities.Cliente;
 import br.com.carrancas.start.minhavez.entities.Ticket;
 import br.com.carrancas.start.minhavez.eums.Status;
 import br.com.carrancas.start.minhavez.repositories.TicketRepository;
@@ -16,7 +16,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -25,16 +24,16 @@ public class TicketService {
 
     private final TicketRepository ticketRepository;
     private final FilaService filaService;
-    private final PessoaService pessoaService;
+    private final ClienteService clienteService;
     private final JwtService jwtService;
 
     public TicketResponseDto criar(int filaId) {
         String userEmail = getUserEmail();
         Ticket ticket = new Ticket();
-        Pessoa pessoa = pessoaService.getPessoa(userEmail);
+        Cliente cliente = clienteService.getPessoa(userEmail);
         Fila fila = filaService.getFila(filaId);
         ticket.setFila(fila);
-        ticket.setPessoa(pessoa);
+        ticket.setCliente(cliente);
         ordemTicket(ticket, fila);
         //TODO fazer validação para que pessoa nao entre na fila 2x...
         ticketRepository.save(ticket);
