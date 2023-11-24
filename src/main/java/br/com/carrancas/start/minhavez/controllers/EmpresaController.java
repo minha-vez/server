@@ -25,7 +25,7 @@ public class EmpresaController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('FUNCIONARIO')")
+    @PreAuthorize("hasAnyRole('FUNCIONARIO', 'ADMIN')")
     @GetMapping
     public List<EmpresaResponseDTO> listarEmpresas(){
         return empresaService.listarEmpresas();
