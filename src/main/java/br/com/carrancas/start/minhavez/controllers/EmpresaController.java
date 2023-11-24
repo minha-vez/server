@@ -1,6 +1,7 @@
 package br.com.carrancas.start.minhavez.controllers;
 
 import br.com.carrancas.start.minhavez.dto.request.EmpresaNewRequestDto;
+import br.com.carrancas.start.minhavez.dto.response.EmpresaResponseClienteDTO;
 import br.com.carrancas.start.minhavez.dto.response.EmpresaResponseDTO;
 import br.com.carrancas.start.minhavez.services.EmpresaService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,11 @@ public class EmpresaController {
     @GetMapping
     public List<EmpresaResponseDTO> listarEmpresas(){
         return empresaService.listarEmpresas();
+    }
+
+    @GetMapping("/{empresaId}")
+    public EmpresaResponseClienteDTO buscarEmpresaById(@PathVariable int empresaId){
+        return empresaService.buscarEmpresaById(empresaId);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

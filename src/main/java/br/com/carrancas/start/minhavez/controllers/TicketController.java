@@ -26,9 +26,8 @@ public class TicketController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    public List<TicketResponseDto> listarTickets() {
-        return ticketService.listarTicket();
+    @GetMapping("/fila/{filaId}")
+    public List<TicketResponseDto> listarTickets(@PathVariable int filaId) {
+        return ticketService.listarTicketByFila(filaId);
     }
 }

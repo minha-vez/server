@@ -40,6 +40,20 @@ public class TicketService {
         return TicketResponseDto.toDto(ticket);
     }
 
+    public List<TicketResponseDto> listarTicketByFila(int filaId) {
+        return ticketRepository.findAll().stream()
+                .filter(ticket -> ticket.getFila().getId() == filaId)
+                .map(TicketResponseDto::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public void cancelarTicket(int ticketId) {
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(()-> new RuntimeException("Ticket não encontrado"));
+        if (ticket.getStatusAtendimento().equals(Status.ESPERA))
+            ticket.setStatusAtendimento(Status.CANCELADO);
+    }
+
     private String getUserEmail() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         final String bearerToken = request.getHeader(HttpHeaders.AUTHORIZATION);
@@ -65,20 +79,6 @@ public class TicketService {
             }
             ticket.setOrdem(ordem);
         }
-    }
-
-    public void cancelarTicket(int ticketId) {
-        Ticket ticket = ticketRepository.findById(ticketId)
-                .orElseThrow(()-> new RuntimeException("Ticket não encontrado"));
-        if (ticket.getStatusAtendimento().equals(Status.ESPERA))
-            ticket.setStatusAtendimento(Status.CANCELADO);
-    }
-
-
-    public List<TicketResponseDto> listarTicket() {
-        return ticketRepository.findAll().stream()
-                .map(ticket -> TicketResponseDto.toDto(ticket))
-                .collect(Collectors.toList());
     }
 
 }
