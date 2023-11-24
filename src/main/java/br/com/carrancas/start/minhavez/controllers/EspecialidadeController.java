@@ -5,6 +5,7 @@ import br.com.carrancas.start.minhavez.dto.response.EspecialidadeResponseDTO;
 import br.com.carrancas.start.minhavez.services.EspecialidadeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class EspecialidadeController {
     private final EspecialidadeService especialidadeService;
 
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public EspecialidadeResponseDTO criar(@RequestBody EspecialidadeRequestDto especialidadeRequestDto) {
         return especialidadeService.criar(especialidadeRequestDto);

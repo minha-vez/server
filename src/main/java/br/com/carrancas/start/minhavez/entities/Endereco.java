@@ -24,8 +24,8 @@ public class Endereco {
     private String numero;
 
     @OneToOne
-    @JoinColumn(name = "pessoa_id")
-    private Pessoa pessoa;
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
     @OneToOne
     @JoinColumn(name = "empresa_id")

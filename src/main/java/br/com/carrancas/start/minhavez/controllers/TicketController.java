@@ -20,7 +20,7 @@ public class TicketController {
     private final TicketService ticketService;
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/fila/{filaId}")
-    @PreAuthorize("hasAnyRole('CLIENTE')")
+    @PreAuthorize("hasAnyRole('CLIENTE', 'ADMIN')")
     public TicketResponseDto criar(@PathVariable("filaId") int filaId) {
         return ticketService.criar(filaId);
     }

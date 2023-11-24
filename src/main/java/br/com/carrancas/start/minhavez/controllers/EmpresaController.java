@@ -19,6 +19,7 @@ public class EmpresaController {
     private final EmpresaService empresaService;
 
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public EmpresaResponseDTO criar(@RequestBody EmpresaNewRequestDto empresaNewRequestDto){
         return empresaService.criar(empresaNewRequestDto);
@@ -37,6 +38,7 @@ public class EmpresaController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{empresaId}")
     public void deletarEmpresa(@PathVariable int empresaId){
         empresaService.deletarEmpresa(empresaId);
