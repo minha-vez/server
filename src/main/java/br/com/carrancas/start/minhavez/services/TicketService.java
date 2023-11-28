@@ -2,8 +2,9 @@ package br.com.carrancas.start.minhavez.services;
 
 import br.com.carrancas.start.minhavez.config.JwtService;
 import br.com.carrancas.start.minhavez.dto.response.TicketResponseDto;
-import br.com.carrancas.start.minhavez.entities.Fila;
+import br.com.carrancas.start.minhavez.dto.response.TicketResponseRelatorioDTO;
 import br.com.carrancas.start.minhavez.entities.Cliente;
+import br.com.carrancas.start.minhavez.entities.Fila;
 import br.com.carrancas.start.minhavez.entities.Ticket;
 import br.com.carrancas.start.minhavez.eums.Status;
 import br.com.carrancas.start.minhavez.repositories.TicketRepository;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,10 +51,62 @@ public class TicketService {
     }
 
     public void cancelarTicket(int ticketId) {
-        Ticket ticket = ticketRepository.findById(ticketId)
-                .orElseThrow(()-> new RuntimeException("Ticket não encontrado"));
-        if (ticket.getStatusAtendimento().equals(Status.ESPERA))
+        Ticket ticket = getTicket(ticketId);
+        if (ticket.getStatusAtendimento().equals(Status.ESPERA)) {
             ticket.setStatusAtendimento(Status.CANCELADO);
+            ticketRepository.save(ticket);
+        }
+    }
+
+    public void atenderTicket(int ticketId) {
+        Ticket ticket = getTicket(ticketId);
+        if (ticket.getStatusAtendimento().equals(Status.ESPERA)) {
+            ticket.setStatusAtendimento(Status.ATENDIMENTO);
+            ticketRepository.save(ticket);
+        }
+    }
+
+    public void finalizarTicket(int ticketId) {
+        Ticket ticket = getTicket(ticketId);
+        if(ticket.getStatusAtendimento().equals(Status.ATENDIMENTO)){
+            ticket.setStatusAtendimento(Status.FINALIZADO);
+            ticket.setHoraEncerramento(LocalTime.now());
+            ticketRepository.save(ticket);
+        }
+    }
+
+    public TicketResponseRelatorioDTO mediaAtendimentoPorDia(int filaId){
+        List<Ticket> tickets = listarTicketEntityByFila(filaId);
+        int qntTickets = tickets.size();
+
+        long somaAtendimentoEmSegundos = tickets.stream()
+                .mapToLong(ticket -> {
+                    LocalTime horaEntrada = ticket.getHoraEntrada();
+                    LocalTime horaEncerramento = ticket.getHoraEncerramento();
+
+                    return Duration.between(horaEntrada, horaEncerramento).getSeconds();
+                })
+                .sum();
+
+        long mediaAtendimentoEmSegundos = somaAtendimentoEmSegundos / qntTickets;
+        LocalTime mediaAtendimento = LocalTime.ofSecondOfDay(mediaAtendimentoEmSegundos);
+
+        return TicketResponseRelatorioDTO.builder()
+                .qntTickets(qntTickets)
+                .mediaAtendimento(mediaAtendimento)
+                .build();
+    }
+
+    private List<Ticket> listarTicketEntityByFila(int filaId) {
+        return ticketRepository.findAll().stream()
+                .filter(ticket -> ticket.getFila().getId() == filaId)
+                .collect(Collectors.toList());
+    }
+
+    private Ticket getTicket(int ticketId) {
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new RuntimeException("Ticket não encontrado"));
+        return ticket;
     }
 
     private String getUserEmail() {
@@ -70,7 +125,8 @@ public class TicketService {
             ticket.setOrdem(ordem);
         } else {
             Ticket ultimoTicket = ticketRepository
-                    .findFirstByFilaEmpresaIdOrderByDataCriacaoDesc(fila.getEmpresa().getId())
+                    .findLastTicketByEmpresaIdAndData(
+                            fila.getEmpresa().getId(), dataAtual)
                     .orElse(null);
 
             if (ultimoTicket != null) {

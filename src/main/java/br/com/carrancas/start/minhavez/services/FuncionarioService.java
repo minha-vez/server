@@ -1,12 +1,11 @@
 package br.com.carrancas.start.minhavez.services;
 
-import br.com.carrancas.start.minhavez.client.EnderecoViaCepClient;
 import br.com.carrancas.start.minhavez.dto.request.FuncionarioNewRequestDTO;
 import br.com.carrancas.start.minhavez.dto.response.FuncionarioResponseDTO;
 import br.com.carrancas.start.minhavez.entities.Empresa;
 import br.com.carrancas.start.minhavez.entities.Funcionario;
+import br.com.carrancas.start.minhavez.eums.EnumRole;
 import br.com.carrancas.start.minhavez.repositories.FuncionarioRepository;
-import br.com.carrancas.start.minhavez.repositories.EnderecoRepository;
 import br.com.carrancas.start.minhavez.repositories.RoleRepository;
 import br.com.carrancas.start.minhavez.repositories.UsuarioRepository;
 import br.com.carrancas.start.minhavez.user.Role;
@@ -27,9 +26,7 @@ public class FuncionarioService {
     private final FuncionarioRepository funcionarioRepository;
     private final UsuarioRepository usuarioRepository;
     private final RoleRepository roleRepository;
-
     private final EmpresaService empresaService;
-
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
@@ -43,20 +40,17 @@ public class FuncionarioService {
                 .name(funcionarioNewRequestDTO.getNome())
                 .build();
 
-        Role roleFuncionario = roleRepository.findByName("ROLE_FUNCIONARIO")
-                .orElseThrow(() -> new RuntimeException("Role ROLE_FUNCIONARIO não encontrada"));
+        Role roleFuncionario = roleRepository.findByName(EnumRole.ROLE_FUNCIONARIO.name())
+                .orElseThrow(() -> new RuntimeException("Role " + EnumRole.ROLE_FUNCIONARIO.name() + " não encontrada"));
 
         user.setRoles(new HashSet<>(Collections.singletonList(roleFuncionario)));
 
         usuarioRepository.save(user);
 
         Funcionario funcionario = FuncionarioNewRequestDTO.toEntity(funcionarioNewRequestDTO);
-
         Empresa empresa = empresaService.getEmpresa(empresaId);
         funcionario.setEmpresa(empresa);
-
         funcionarioRepository.save(funcionario);
-
         return FuncionarioResponseDTO.toDto(funcionario);
     }
 

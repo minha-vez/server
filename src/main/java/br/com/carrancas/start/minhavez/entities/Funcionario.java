@@ -37,9 +37,8 @@ public class Funcionario {
     @Enumerated(EnumType.STRING)
     private Genero genero;
 
-//    @OneToOne(mappedBy = "funcionario", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OneToOne
-    @JoinColumn(name = "empresa_id")
+    @ManyToOne
+    @JoinColumn(name = "empresa_id", nullable = false)
     private Empresa empresa;
 
 }

@@ -19,6 +19,7 @@ import java.util.List;
 public class TicketController {
 
     private final TicketService ticketService;
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/fila/{filaId}")
     @PreAuthorize("hasAnyRole('CLIENTE', 'ADMIN')")
@@ -30,5 +31,11 @@ public class TicketController {
     @GetMapping("/fila/{filaId}")
     public List<TicketResponseDto> listarTickets(@PathVariable int filaId) {
         return ticketService.listarTicketByFila(filaId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/ticket/{ticketId}")
+    public void cancelarTicket(@PathVariable int ticketId){
+        ticketService.cancelarTicket(ticketId);
     }
 }
