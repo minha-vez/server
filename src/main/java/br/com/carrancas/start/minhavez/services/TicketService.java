@@ -125,7 +125,8 @@ public class TicketService {
             ticket.setOrdem(ordem);
         } else {
             Ticket ultimoTicket = ticketRepository
-                    .findFirstByFilaEmpresaIdOrderByDataCriacaoDesc(fila.getEmpresa().getId())
+                    .findLastTicketByEmpresaIdAndData(
+                            fila.getEmpresa().getId(), dataAtual)
                     .orElse(null);
 
             if (ultimoTicket != null) {
