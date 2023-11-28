@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RequestMapping("/clientes")
 @RequiredArgsConstructor
 @RestController
@@ -17,7 +18,7 @@ public class ClienteController {
     private final ClienteService clienteService;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'FUNCIONARIO')")
     @PostMapping
     public ClienteResponseDTO criar(@RequestBody ClienteNewRequestDTO clienteNewRequestDTO) {
         return clienteService.criar(clienteNewRequestDTO);

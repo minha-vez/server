@@ -24,7 +24,7 @@ public class TicketResponseDto {
         return TicketResponseDto.builder()
                 .ordem(ticket.getOrdem())
                 .horaEntrada(ticket.getHoraEntrada())
-                .nomePessoa(ticket.getPessoa().getNome())
+                .nomePessoa(ticket.getCliente().getNome())
                 .nomeEmpresa(ticket.getFila().getEmpresa().getNome())
                 .statusAtendimento((ticket.getStatusAtendimento()))
                 .isPreferencial(ticket.getFila().getPreferencial())

@@ -1,5 +1,6 @@
 package br.com.carrancas.start.minhavez.dto.response;
 
+import br.com.carrancas.start.minhavez.entities.Empresa;
 import br.com.carrancas.start.minhavez.entities.Funcionario;
 import lombok.*;
 
@@ -11,12 +12,12 @@ import lombok.*;
 public class FuncionarioResponseDTO {
 
     private String matricula;
-    private String password;
+    private String empresa;
 
     public static FuncionarioResponseDTO toDto(Funcionario funcionario) {
         return FuncionarioResponseDTO.builder()
                 .matricula(funcionario.getMatricula())
-                .password(funcionario.getPassword())
+                .empresa(funcionario.getEmpresa().getNome())
                 .build();
     }
 

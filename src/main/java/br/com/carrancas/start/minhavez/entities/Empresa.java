@@ -70,6 +70,9 @@ public class Empresa {
             joinColumns = @JoinColumn(name = "empresa_id"),
             inverseJoinColumns = @JoinColumn(name = "especialidade_id"))
     private Set<Especialidade> especialidades = new HashSet<>();
+
+    @OneToOne(mappedBy = "empresa")
+    private Funcionario funcionario;
 }
 
 
