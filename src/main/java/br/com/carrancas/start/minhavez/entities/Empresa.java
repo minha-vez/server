@@ -65,14 +65,16 @@ public class Empresa {
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Convenio> convenioList;
 
+    @JsonBackReference
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Funcionario> funcionarioList;
+
     @ManyToMany
     @JoinTable(name = "empresa_especialidade",
             joinColumns = @JoinColumn(name = "empresa_id"),
             inverseJoinColumns = @JoinColumn(name = "especialidade_id"))
     private Set<Especialidade> especialidades = new HashSet<>();
 
-    @OneToOne(mappedBy = "empresa")
-    private Funcionario funcionario;
 }
 
 
