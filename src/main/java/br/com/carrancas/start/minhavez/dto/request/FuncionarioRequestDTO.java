@@ -22,7 +22,6 @@ public class FuncionarioRequestDTO {
                 .nome(funcionarioRequestDTO.getNome())
                 .matricula(funcionarioRequestDTO.getMatricula())
                 .telefone(funcionarioRequestDTO.getTelefone())
-                .password(funcionarioRequestDTO.getPassword())
                 .genero(funcionarioRequestDTO.getGenero())
                 .build();
 
