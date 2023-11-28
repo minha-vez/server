@@ -6,6 +6,7 @@ import br.com.carrancas.start.minhavez.dto.request.ClienteNewRequestDTO;
 import br.com.carrancas.start.minhavez.dto.response.ClienteResponseDTO;
 import br.com.carrancas.start.minhavez.entities.Endereco;
 import br.com.carrancas.start.minhavez.entities.Cliente;
+import br.com.carrancas.start.minhavez.eums.EnumRole;
 import br.com.carrancas.start.minhavez.exception.CepInvalidoException;
 import br.com.carrancas.start.minhavez.repositories.EnderecoRepository;
 import br.com.carrancas.start.minhavez.repositories.ClienteRepository;
@@ -35,7 +36,6 @@ public class ClienteService {
 
     @Transactional
     public ClienteResponseDTO criar(ClienteNewRequestDTO clienteNewRequestDTO) {
-        // TODO criar um DTO para criar pessoa, e dentro dele pegar os campos password e email, e salvar usuario e pessoa ao mesmo tempo
         EnderecoRequestDTO enderecoRequestDTO = enderecoViaCepClient.buscarViaCep(clienteNewRequestDTO.getCep());
         if (enderecoRequestDTO.getLogradouro() == null || enderecoRequestDTO.getLocalidade() == null) {
             throw new CepInvalidoException();
@@ -48,8 +48,8 @@ public class ClienteService {
                 .name(clienteNewRequestDTO.getNome())
                 .build();
 
-        Role roleCliente = roleRepository.findByName("ROLE_CLIENTE")
-                .orElseThrow(() -> new RuntimeException("Role ROLE_CLIENTE não encontrada"));
+        Role roleCliente = roleRepository.findByName(EnumRole.ROLE_CLIENTE.name())
+                .orElseThrow(() -> new RuntimeException("Role " + EnumRole.ROLE_CLIENTE.name() + " não encontrada"));
 
         user.setRoles(new HashSet<>(Collections.singletonList(roleCliente)));
 
