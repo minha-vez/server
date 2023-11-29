@@ -7,7 +7,7 @@ import br.com.carrancas.start.minhavez.dto.response.EmpresaResponseDTO;
 import br.com.carrancas.start.minhavez.dto.request.EnderecoRequestDTO;
 import br.com.carrancas.start.minhavez.entities.Empresa;
 import br.com.carrancas.start.minhavez.entities.Endereco;
-import br.com.carrancas.start.minhavez.exception.*;
+import br.com.carrancas.start.minhavez.exception.empresa.*;
 import br.com.carrancas.start.minhavez.repositories.EmpresaRepository;
 import br.com.carrancas.start.minhavez.repositories.EnderecoRepository;
 import jakarta.transaction.Transactional;

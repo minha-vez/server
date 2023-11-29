@@ -7,7 +7,9 @@ import br.com.carrancas.start.minhavez.dto.response.ClienteResponseDTO;
 import br.com.carrancas.start.minhavez.entities.Endereco;
 import br.com.carrancas.start.minhavez.entities.Cliente;
 import br.com.carrancas.start.minhavez.eums.EnumRole;
-import br.com.carrancas.start.minhavez.exception.CepInvalidoException;
+import br.com.carrancas.start.minhavez.exception.cliente.ClienteNotFoundException;
+import br.com.carrancas.start.minhavez.exception.empresa.CepInvalidoException;
+import br.com.carrancas.start.minhavez.exception.role.RoleNotFoundException;
 import br.com.carrancas.start.minhavez.repositories.EnderecoRepository;
 import br.com.carrancas.start.minhavez.repositories.ClienteRepository;
 import br.com.carrancas.start.minhavez.repositories.RoleRepository;
@@ -49,7 +51,7 @@ public class ClienteService {
                 .build();
 
         Role roleCliente = roleRepository.findByName(EnumRole.ROLE_CLIENTE.name())
-                .orElseThrow(() -> new RuntimeException("Role " + EnumRole.ROLE_CLIENTE.name() + " não encontrada"));
+                .orElseThrow(() -> new RoleNotFoundException(EnumRole.ROLE_CLIENTE.name()));
 
         user.setRoles(new HashSet<>(Collections.singletonList(roleCliente)));
 
@@ -61,16 +63,17 @@ public class ClienteService {
         return ClienteResponseDTO.toDto(cliente);
     }
 
-    private void salvarPessoaEndereco(Endereco endereco, Cliente cliente) {
-        endereco.setCliente(cliente);
-        clienteRepository.save(cliente);
-        enderecoRepository.save(endereco);
-    }
-
     public Cliente getPessoa(String email) {
         return clienteRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Pessoa não encontrada"));
+                .orElseThrow(() -> new ClienteNotFoundException());
 
+    }
+
+    public ClienteResponseDTO buscarPessoaPorEmail(String email){
+        Cliente cliente = clienteRepository.findByEmail(email)
+                .orElseThrow(() -> new ClienteNotFoundException());
+
+        return ClienteResponseDTO.toDto(cliente);
     }
 
     public List<ClienteResponseDTO> listarPessoa() {
@@ -78,6 +81,12 @@ public class ClienteService {
         return clienteList.stream()
                 .map(pessoa -> ClienteResponseDTO.toDto(pessoa))
                 .collect(Collectors.toList());
+    }
+
+    private void salvarPessoaEndereco(Endereco endereco, Cliente cliente) {
+        endereco.setCliente(cliente);
+        clienteRepository.save(cliente);
+        enderecoRepository.save(endereco);
     }
 
 }
