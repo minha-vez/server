@@ -1,6 +1,7 @@
 package br.com.carrancas.start.minhavez.controllers;
 
 import br.com.carrancas.start.minhavez.dto.response.TicketResponseDto;
+import br.com.carrancas.start.minhavez.dto.response.TicketResponseRelatorioDTO;
 import br.com.carrancas.start.minhavez.services.TicketService;
 import lombok.RequiredArgsConstructor;
 
@@ -37,5 +38,23 @@ public class TicketController {
     @DeleteMapping("/ticket/{ticketId}")
     public void cancelarTicket(@PathVariable int ticketId){
         ticketService.cancelarTicket(ticketId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/ticket/atender/{ticketId}")
+    public void atenderTicket(@PathVariable int ticketId){
+        ticketService.atenderTicket(ticketId);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/ticket/finalizar/{ticketId}")
+    public void finalizarTicket(@PathVariable int ticketId){
+        ticketService.finalizarTicket(ticketId);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/fila/{filaId}/relatorio")
+    public TicketResponseRelatorioDTO mediaAtendimentoPorDia(@PathVariable int filaId){
+        return ticketService.mediaAtendimentoPorDia(filaId);
     }
 }
