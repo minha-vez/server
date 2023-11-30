@@ -29,9 +29,6 @@ public class AuthenticationService {
         );
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
 
-        UserDetails usuario = usuarioRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
         String jwtToken = jwtService.generateToken(userDetails);
 
 
