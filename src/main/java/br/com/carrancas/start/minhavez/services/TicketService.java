@@ -77,9 +77,12 @@ public class TicketService {
 
     public TicketResponseRelatorioDTO mediaAtendimentoPorDia(int filaId){
         List<Ticket> tickets = listarTicketEntityByFila(filaId);
-        int qntTickets = tickets.size();
+        List<Ticket> ticketsFinalizados = tickets.stream()
+                .filter(ticket -> ticket.getStatusAtendimento().equals(Status.FINALIZADO))
+                .collect(Collectors.toList());
+        int qntTickets = ticketsFinalizados.size();
 
-        long somaAtendimentoEmSegundos = tickets.stream()
+        long somaAtendimentoEmSegundos = ticketsFinalizados.stream()
                 .mapToLong(ticket -> {
                     LocalTime horaEntrada = ticket.getHoraEntrada();
                     LocalTime horaEncerramento = ticket.getHoraEncerramento();

@@ -1,4 +1,4 @@
-package br.com.carrancas.start.minhavez.exception;
+package br.com.carrancas.start.minhavez.exception.empresa;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;

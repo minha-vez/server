@@ -25,6 +25,12 @@ public class ClienteController {
     }
 
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/email/{email}")
+    public ClienteResponseDTO buscarPessoaPorEmail(@PathVariable String email){
+        return clienteService.buscarPessoaPorEmail(email);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
     public List<ClienteResponseDTO> listarPessoas() {
