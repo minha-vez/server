@@ -3,11 +3,16 @@ package br.com.carrancas.start.minhavez.controllers;
 import br.com.carrancas.start.minhavez.dto.request.AuthenticationRequest;
 import br.com.carrancas.start.minhavez.dto.response.AuthenticationResponse;
 import br.com.carrancas.start.minhavez.services.AuthenticationService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Key;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -21,5 +26,12 @@ public class AuthenticationController {
             @RequestBody AuthenticationRequest request) {
         return service.authenticate(request);
     }
+
+
+    @GetMapping("/decodeToken/{token}")
+    public ResponseEntity<?> decodeToken(@PathVariable String token) {
+        return service.decodeToken(token);
+    }
+
 
 }
