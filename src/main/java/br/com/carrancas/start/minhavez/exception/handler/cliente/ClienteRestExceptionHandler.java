@@ -17,6 +17,7 @@ public class ClienteRestExceptionHandler {
         return new ResponseEntity<>(ExceptionDetails.builder()
                 .dataHora(LocalDateTime.now())
                 .titulo("Not Found Exception, Check a Documentação")
+                .status(ex.getStatusCode().value())
                 .detalhes(ex.getMessage())
                 .mensagemDesenvolvedor(ex.getClass().getName())
                 .build(), HttpStatus.NOT_FOUND);
