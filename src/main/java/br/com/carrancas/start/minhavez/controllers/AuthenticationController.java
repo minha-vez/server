@@ -28,7 +28,7 @@ public class AuthenticationController {
     }
 
 
-    @GetMapping("/decodeToken/{token}")
+    @GetMapping("/decode/{token}")
     public ResponseEntity<?> decodeToken(@PathVariable String token) {
         return service.decodeToken(token);
     }
