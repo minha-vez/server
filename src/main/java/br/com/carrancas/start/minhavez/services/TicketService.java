@@ -7,6 +7,7 @@ import br.com.carrancas.start.minhavez.entities.Cliente;
 import br.com.carrancas.start.minhavez.entities.Fila;
 import br.com.carrancas.start.minhavez.entities.Ticket;
 import br.com.carrancas.start.minhavez.eums.Status;
+import br.com.carrancas.start.minhavez.exception.cliente.ClienteEmFilaException;
 import br.com.carrancas.start.minhavez.exception.ticket.TicketStatusException;
 import br.com.carrancas.start.minhavez.repositories.TicketRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,18 +34,23 @@ public class TicketService {
     private final JwtService jwtService;
 
     public TicketResponseDto criar(int filaId) {
-        //TODO Fazer validação se fila existe!
         String userEmail = getUserEmail();
-        Ticket ticket = new Ticket();
         Cliente cliente = clienteService.getPessoa(userEmail);
-        Fila fila = filaService.getFila(filaId);
-        ticket.setFila(fila);
-        ticket.setCliente(cliente);
-        ordemTicket(ticket, fila);
-        //TODO fazer validação para que pessoa nao entre na fila 2x... E usuario pode entrar em outra fila novamente
-        // se o status estiver Cancelado ou finalizado
-        ticketRepository.save(ticket);
-        return TicketResponseDto.toDto(ticket);
+        boolean possuiTicketsFinalizadosOuCancelados = ticketRepository.existsByClienteAndStatusIn(
+                cliente,
+                Arrays.asList(Status.CANCELADO, Status.FINALIZADO));
+        boolean possuiTickets = ticketRepository.existsByCliente(cliente);
+
+        if(possuiTicketsFinalizadosOuCancelados || !possuiTickets){
+            Ticket ticket = new Ticket();
+            Fila fila = filaService.getFila(filaId);
+            ticket.setFila(fila);
+            ticket.setCliente(cliente);
+            ordemTicket(ticket, fila);
+            ticketRepository.save(ticket);
+            return TicketResponseDto.toDto(ticket);
+        }
+            throw new ClienteEmFilaException();
     }
 
     public List<TicketResponseDto> listarTicketByFila(int filaId) {
