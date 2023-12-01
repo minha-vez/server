@@ -4,6 +4,7 @@ import br.com.carrancas.start.minhavez.dto.request.FilaRequestDto;
 import br.com.carrancas.start.minhavez.dto.response.FilaResponseDto;
 import br.com.carrancas.start.minhavez.entities.Empresa;
 import br.com.carrancas.start.minhavez.entities.Fila;
+import br.com.carrancas.start.minhavez.exception.fila.FilaNotFoundException;
 import br.com.carrancas.start.minhavez.repositories.FilaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class FilaService {
 
     public Fila getFila(int filaId) {
         return filaRepository.findById(filaId)
-                .orElseThrow(() -> new RuntimeException("Fila não encontrada"));
+                .orElseThrow(() -> new FilaNotFoundException());
     }
 
 }

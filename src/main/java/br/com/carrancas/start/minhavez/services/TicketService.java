@@ -32,6 +32,7 @@ public class TicketService {
     private final JwtService jwtService;
 
     public TicketResponseDto criar(int filaId) {
+        //TODO Fazer validação se fila existe!
         String userEmail = getUserEmail();
         Ticket ticket = new Ticket();
         Cliente cliente = clienteService.getPessoa(userEmail);

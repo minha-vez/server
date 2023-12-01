@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class ClienteRestExceptionHandler {
 
     @ExceptionHandler(ClienteNotFoundException.class)
-    private ResponseEntity<ExceptionDetails> handlerRoleNotFoundException(ClienteNotFoundException ex) {
+    private ResponseEntity<ExceptionDetails> handlerClienteNotFoundException(ClienteNotFoundException ex) {
         return new ResponseEntity<>(ExceptionDetails.builder()
                 .dataHora(LocalDateTime.now())
                 .titulo("Not Found Exception, Check a Documentação")
