@@ -7,6 +7,7 @@ import br.com.carrancas.start.minhavez.entities.Cliente;
 import br.com.carrancas.start.minhavez.entities.Fila;
 import br.com.carrancas.start.minhavez.entities.Ticket;
 import br.com.carrancas.start.minhavez.eums.Status;
+import br.com.carrancas.start.minhavez.exception.ticket.TicketStatusException;
 import br.com.carrancas.start.minhavez.repositories.TicketRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,8 @@ public class TicketService {
         ticket.setFila(fila);
         ticket.setCliente(cliente);
         ordemTicket(ticket, fila);
-        //TODO fazer validação para que pessoa nao entre na fila 2x...
+        //TODO fazer validação para que pessoa nao entre na fila 2x... E usuario pode entrar em outra fila novamente
+        // se o status estiver Cancelado ou finalizado
         ticketRepository.save(ticket);
         return TicketResponseDto.toDto(ticket);
     }
@@ -55,7 +57,9 @@ public class TicketService {
         if (ticket.getStatusAtendimento().equals(Status.ESPERA)) {
             ticket.setStatusAtendimento(Status.CANCELADO);
             ticketRepository.save(ticket);
+            return;
         }
+        throw new TicketStatusException("O ticket não está no status adequado para cancelamento.");
     }
 
     public void atenderTicket(int ticketId) {
@@ -63,7 +67,9 @@ public class TicketService {
         if (ticket.getStatusAtendimento().equals(Status.ESPERA)) {
             ticket.setStatusAtendimento(Status.ATENDIMENTO);
             ticketRepository.save(ticket);
+            return;
         }
+        throw new TicketStatusException("O ticket não está no status adequado para atendimento.");
     }
 
     public void finalizarTicket(int ticketId) {
@@ -72,15 +78,19 @@ public class TicketService {
             ticket.setStatusAtendimento(Status.FINALIZADO);
             ticket.setHoraEncerramento(LocalTime.now());
             ticketRepository.save(ticket);
+            return;
         }
+        throw new TicketStatusException("O ticket não está no status adequado para finalizado.");
     }
 
     public TicketResponseRelatorioDTO mediaAtendimentoPorDia(int filaId){
         List<Ticket> tickets = listarTicketEntityByFila(filaId);
-        List<Ticket> ticketsFinalizados = tickets.stream()
-                .filter(ticket -> ticket.getStatusAtendimento().equals(Status.FINALIZADO))
-                .collect(Collectors.toList());
-        int qntTickets = ticketsFinalizados.size();
+
+        List<Ticket> ticketsFinalizados = filtrarTicketsPorStatus(tickets, Status.FINALIZADO);
+        List<Ticket> ticketsCancelados = filtrarTicketsPorStatus(tickets, Status.CANCELADO);
+
+        int qntTicketsFinalizado = ticketsFinalizados.size();
+        int qntTicketsCancelado = ticketsCancelados.size();
 
         long somaAtendimentoEmSegundos = ticketsFinalizados.stream()
                 .mapToLong(ticket -> {
@@ -91,13 +101,20 @@ public class TicketService {
                 })
                 .sum();
 
-        long mediaAtendimentoEmSegundos = somaAtendimentoEmSegundos / qntTickets;
+        long mediaAtendimentoEmSegundos = somaAtendimentoEmSegundos / qntTicketsFinalizado;
         LocalTime mediaAtendimento = LocalTime.ofSecondOfDay(mediaAtendimentoEmSegundos);
 
         return TicketResponseRelatorioDTO.builder()
-                .qntTickets(qntTickets)
+                .qntTicketsFinalizados(qntTicketsFinalizado)
                 .mediaAtendimento(mediaAtendimento)
+                .qntTicketsCancelados(qntTicketsCancelado)
                 .build();
+    }
+
+    private List<Ticket> filtrarTicketsPorStatus(List<Ticket> tickets, Status status) {
+        return tickets.stream()
+                .filter(ticket -> ticket.getStatusAtendimento().equals(status))
+                .toList();
     }
 
     private List<Ticket> listarTicketEntityByFila(int filaId) {
