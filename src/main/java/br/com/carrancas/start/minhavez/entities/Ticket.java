@@ -45,7 +45,7 @@ public class Ticket {
     @JoinColumn(name = "fila_id")
     private Fila fila;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 }

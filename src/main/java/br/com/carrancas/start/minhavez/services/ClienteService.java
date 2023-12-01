@@ -45,7 +45,7 @@ public class ClienteService {
         String senhaEncriptada = passwordEncoder.encode(clienteNewRequestDTO.getPassword());
 
         User user = User.builder()
-                .email(clienteNewRequestDTO.getEmail())
+                .email(clienteNewRequestDTO.getEmail().toLowerCase())
                 .password(senhaEncriptada)
                 .name(clienteNewRequestDTO.getNome())
                 .build();
