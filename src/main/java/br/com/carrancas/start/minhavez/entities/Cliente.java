@@ -1,10 +1,12 @@
 package br.com.carrancas.start.minhavez.entities;
 
 import br.com.carrancas.start.minhavez.eums.Genero;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,8 +39,9 @@ public class Cliente {
     @Enumerated(EnumType.STRING)
     private Genero genero;
 
-    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Ticket ticket;
+    @JsonBackReference
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Ticket> ticketList;
 
     @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(nullable = false)
