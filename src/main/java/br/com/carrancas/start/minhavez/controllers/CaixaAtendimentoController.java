@@ -2,6 +2,7 @@ package br.com.carrancas.start.minhavez.controllers;
 
 import br.com.carrancas.start.minhavez.dto.request.CaixaAtendimentoRequestDTO;
 import br.com.carrancas.start.minhavez.dto.response.CaixaAtendimentoResponseDTO;
+import br.com.carrancas.start.minhavez.dto.response.TicketResponseTelaDTO;
 import br.com.carrancas.start.minhavez.services.CaixaAtendimentoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,5 +34,18 @@ public class CaixaAtendimentoController {
     @GetMapping("/empresa/{empresaId}")
     public List<CaixaAtendimentoResponseDTO> listaCaixaAtendimentoPorEmpresa(@PathVariable int empresaId) {
         return caixaAtendimentoService.listaCaixaAtendimentoPorEmpresa(empresaId);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PatchMapping("/caixa/{caixaId}/atender/ticket/{ticketId}")
+    public TicketResponseTelaDTO atenderTicket(@PathVariable int ticketId, @PathVariable int caixaId) {
+        return caixaAtendimentoService.atenderTicket(ticketId,caixaId);
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PatchMapping("/finalizar/ticket/{ticketId}")
+    public void finalizarTicket(@PathVariable int ticketId) {
+        caixaAtendimentoService.finalizarTicket(ticketId);
     }
 }
