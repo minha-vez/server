@@ -13,11 +13,14 @@ public class FuncionarioResponseDTO {
 
     private String matricula;
     private String empresa;
+    private String email;
+
 
     public static FuncionarioResponseDTO toDto(Funcionario funcionario) {
         return FuncionarioResponseDTO.builder()
                 .matricula(funcionario.getMatricula())
                 .empresa(funcionario.getEmpresa().getNome())
+                .email(funcionario.getEmail())
                 .build();
     }
 
