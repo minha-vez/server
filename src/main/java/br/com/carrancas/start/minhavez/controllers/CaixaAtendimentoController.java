@@ -30,8 +30,8 @@ public class CaixaAtendimentoController {
 
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping
-    public List<CaixaAtendimentoResponseDTO> listaCaixaAtendimento() {
-        return caixaAtendimentoService.listaCaixaAtendimento();
+    @GetMapping("/empresa/{empresaId}")
+    public List<CaixaAtendimentoResponseDTO> listaCaixaAtendimentoPorEmpresa(@PathVariable int empresaId) {
+        return caixaAtendimentoService.listaCaixaAtendimentoPorEmpresa(empresaId);
     }
 }

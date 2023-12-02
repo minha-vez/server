@@ -26,9 +26,11 @@ public class CaixaAtendimentoService {
         return CaixaAtendimentoResponseDTO.toDTO(caixaAtendimento);
     }
 
-    public List<CaixaAtendimentoResponseDTO> listaCaixaAtendimento() {
-        List<CaixaAtendimento> caixaAtendimenoList = caixaAtendimentoRepository.findAll();
-        return caixaAtendimenoList.stream()
+    public List<CaixaAtendimentoResponseDTO> listaCaixaAtendimentoPorEmpresa(int empresaId){
+        Empresa empresa = empresaService.getEmpresa(empresaId);
+        List<CaixaAtendimento> listCaixaAtendimento = caixaAtendimentoRepository.findAll();
+        return listCaixaAtendimento.stream()
+                .filter(cx -> cx.getEmpresa() == empresa)
                 .map(caixaAtendimento -> CaixaAtendimentoResponseDTO.toDTO(caixaAtendimento))
                 .collect(Collectors.toList());
     }
