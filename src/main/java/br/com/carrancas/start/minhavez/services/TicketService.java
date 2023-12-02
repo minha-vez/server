@@ -70,12 +70,12 @@ public class TicketService {
         throw new TicketStatusException("O ticket não está no status adequado para cancelamento.");
     }
 
-    public void atenderTicket(int ticketId) {
+    public Ticket atenderTicket(int ticketId) {
         Ticket ticket = getTicket(ticketId);
         if (ticket.getStatusAtendimento().equals(Status.ESPERA)) {
             ticket.setStatusAtendimento(Status.ATENDIMENTO);
             ticketRepository.save(ticket);
-            return;
+            return ticket;
         }
         throw new TicketStatusException("O ticket não está no status adequado para atendimento.");
     }
@@ -92,6 +92,7 @@ public class TicketService {
     }
 
     public TicketResponseRelatorioDTO mediaAtendimentoPorDia(int filaId){
+        //TODO fazer a validação, se o resultado for zero...
         List<Ticket> tickets = listarTicketEntityByFila(filaId);
 
         List<Ticket> ticketsFinalizados = filtrarTicketsPorStatus(tickets, Status.FINALIZADO);
