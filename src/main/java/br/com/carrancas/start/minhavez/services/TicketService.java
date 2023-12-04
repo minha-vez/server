@@ -36,21 +36,21 @@ public class TicketService {
     public TicketResponseDto criar(int filaId) {
         String userEmail = getUserEmail();
         Cliente cliente = clienteService.getPessoa(userEmail);
-        boolean possuiTicketsFinalizadosOuCancelados = ticketRepository.existsByClienteAndStatusIn(
+        boolean possuiTicketsEspera = ticketRepository.existsByClienteAndStatusIn(
                 cliente,
-                Arrays.asList(Status.CANCELADO, Status.FINALIZADO));
+                Arrays.asList(Status.ESPERA));
         boolean possuiTickets = ticketRepository.existsByCliente(cliente);
 
-        if(possuiTicketsFinalizadosOuCancelados || !possuiTickets){
-            Ticket ticket = new Ticket();
-            Fila fila = filaService.getFila(filaId);
-            ticket.setFila(fila);
-            ticket.setCliente(cliente);
-            ordemTicket(ticket, fila);
-            ticketRepository.save(ticket);
-            return TicketResponseDto.toDto(ticket);
-        }
+        if(possuiTicketsEspera){
             throw new ClienteEmFilaException();
+        }
+        Ticket ticket = new Ticket();
+        Fila fila = filaService.getFila(filaId);
+        ticket.setFila(fila);
+        ticket.setCliente(cliente);
+        ordemTicket(ticket, fila);
+        ticketRepository.save(ticket);
+        return TicketResponseDto.toDto(ticket);
     }
 
     public List<TicketResponseDto> listarTicketByFila(int filaId) {
