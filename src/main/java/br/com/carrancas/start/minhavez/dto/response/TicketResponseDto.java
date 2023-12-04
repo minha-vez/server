@@ -13,6 +13,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class TicketResponseDto {
 
+    private Integer id;
     private int ordem;
     private LocalTime horaEntrada;
     private String nomePessoa;
@@ -22,6 +23,7 @@ public class TicketResponseDto {
 
     public static TicketResponseDto toDto(Ticket ticket) {
         return TicketResponseDto.builder()
+                .id(ticket.getId())
                 .ordem(ticket.getOrdem())
                 .horaEntrada(ticket.getHoraEntrada())
                 .nomePessoa(ticket.getCliente().getNome())
