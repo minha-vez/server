@@ -6,7 +6,7 @@ import br.com.carrancas.start.minhavez.dto.response.TicketResponseRelatorioDTO;
 import br.com.carrancas.start.minhavez.entities.Cliente;
 import br.com.carrancas.start.minhavez.entities.Fila;
 import br.com.carrancas.start.minhavez.entities.Ticket;
-import br.com.carrancas.start.minhavez.eums.Status;
+import br.com.carrancas.start.minhavez.enums.Status;
 import br.com.carrancas.start.minhavez.exception.cliente.ClienteEmFilaException;
 import br.com.carrancas.start.minhavez.exception.ticket.TicketStatusException;
 import br.com.carrancas.start.minhavez.repositories.TicketRepository;
@@ -36,21 +36,21 @@ public class TicketService {
     public TicketResponseDto criar(int filaId) {
         String userEmail = getUserEmail();
         Cliente cliente = clienteService.getPessoa(userEmail);
-        boolean possuiTicketsFinalizadosOuCancelados = ticketRepository.existsByClienteAndStatusIn(
+        boolean possuiTicketsEspera = ticketRepository.existsByClienteAndStatusIn(
                 cliente,
-                Arrays.asList(Status.CANCELADO, Status.FINALIZADO));
+                Arrays.asList(Status.ESPERA));
         boolean possuiTickets = ticketRepository.existsByCliente(cliente);
 
-        if(possuiTicketsFinalizadosOuCancelados || !possuiTickets){
-            Ticket ticket = new Ticket();
-            Fila fila = filaService.getFila(filaId);
-            ticket.setFila(fila);
-            ticket.setCliente(cliente);
-            ordemTicket(ticket, fila);
-            ticketRepository.save(ticket);
-            return TicketResponseDto.toDto(ticket);
-        }
+        if(possuiTicketsEspera){
             throw new ClienteEmFilaException();
+        }
+        Ticket ticket = new Ticket();
+        Fila fila = filaService.getFila(filaId);
+        ticket.setFila(fila);
+        ticket.setCliente(cliente);
+        ordemTicket(ticket, fila);
+        ticketRepository.save(ticket);
+        return TicketResponseDto.toDto(ticket);
     }
 
     public List<TicketResponseDto> listarTicketByFila(int filaId) {
@@ -151,6 +151,7 @@ public class TicketService {
         LocalDate dataAtual = LocalDate.now();
 
         if (!fila.getData().equals(dataAtual)) {
+            //TODO fazer validação, para o usuario nao conseguir entrar na fila do dia anterior...
             ticket.setOrdem(ordem);
         } else {
             Ticket ultimoTicket = ticketRepository

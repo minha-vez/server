@@ -6,7 +6,7 @@ import br.com.carrancas.start.minhavez.dto.request.ClienteNewRequestDTO;
 import br.com.carrancas.start.minhavez.dto.response.ClienteResponseDTO;
 import br.com.carrancas.start.minhavez.entities.Endereco;
 import br.com.carrancas.start.minhavez.entities.Cliente;
-import br.com.carrancas.start.minhavez.eums.EnumRole;
+import br.com.carrancas.start.minhavez.enums.EnumRole;
 import br.com.carrancas.start.minhavez.exception.cliente.ClienteNotFoundException;
 import br.com.carrancas.start.minhavez.exception.empresa.CepInvalidoException;
 import br.com.carrancas.start.minhavez.exception.role.RoleNotFoundException;

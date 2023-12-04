@@ -1,6 +1,6 @@
 package br.com.carrancas.start.minhavez.entities;
 
-import br.com.carrancas.start.minhavez.eums.Genero;
+import br.com.carrancas.start.minhavez.enums.Genero;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;

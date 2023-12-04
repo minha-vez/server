@@ -2,7 +2,7 @@ package br.com.carrancas.start.minhavez.repositories;
 
 import br.com.carrancas.start.minhavez.entities.Cliente;
 import br.com.carrancas.start.minhavez.entities.Ticket;
-import br.com.carrancas.start.minhavez.eums.Status;
+import br.com.carrancas.start.minhavez.enums.Status;
 import feign.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

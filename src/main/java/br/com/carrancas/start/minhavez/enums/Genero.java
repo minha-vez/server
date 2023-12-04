@@ -1,4 +1,4 @@
-package br.com.carrancas.start.minhavez.eums;
+package br.com.carrancas.start.minhavez.enums;
 
 public enum Genero {
 

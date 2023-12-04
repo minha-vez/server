@@ -14,7 +14,7 @@ public class EmpresaResponseDTO {
 
     private String nome;
     private String telefone;
-    private String telefoneParaEmergencia; //refatorar
+    private String telefoneParaEmergencia;
     private String email;
     private String website;
     private LocalTime horaInicio;
@@ -24,11 +24,10 @@ public class EmpresaResponseDTO {
     public static EmpresaResponseDTO toDto(Empresa empresa){
         return EmpresaResponseDTO.builder()
                 .nome(empresa.getNome())
+                .email(empresa.getEmail())
                 .telefone(empresa.getTelefone())
                 .website(empresa.getWebsite())
                 .telefoneParaEmergencia(empresa.getTelefoneParaEmergencia())
-                .email(empresa.getEmail())
-                .website(empresa.getWebsite())
                 .horaInicio(empresa.getHoraInicio())
                 .horaFinal(empresa.getHoraFinal())
                 .build();

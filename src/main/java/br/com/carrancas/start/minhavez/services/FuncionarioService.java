@@ -4,7 +4,7 @@ import br.com.carrancas.start.minhavez.dto.request.FuncionarioNewRequestDTO;
 import br.com.carrancas.start.minhavez.dto.response.FuncionarioResponseDTO;
 import br.com.carrancas.start.minhavez.entities.Empresa;
 import br.com.carrancas.start.minhavez.entities.Funcionario;
-import br.com.carrancas.start.minhavez.eums.EnumRole;
+import br.com.carrancas.start.minhavez.enums.EnumRole;
 import br.com.carrancas.start.minhavez.repositories.FuncionarioRepository;
 import br.com.carrancas.start.minhavez.repositories.RoleRepository;
 import br.com.carrancas.start.minhavez.repositories.UsuarioRepository;
