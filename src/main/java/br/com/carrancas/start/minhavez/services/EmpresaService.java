@@ -38,6 +38,37 @@ public class EmpresaService {
         return EmpresaResponseDTO.toDto(empresa);
     }
 
+
+    public List<EmpresaResponseDTO> listarEmpresas() {
+        List<Empresa> empresaList = empresaRepository.findAll();
+        return empresaList.stream()
+                .filter(empresa -> empresa.getStatus().equals(Boolean.TRUE))
+                .map(empresa -> EmpresaResponseDTO.toDto(empresa))
+                .collect(Collectors.toList());
+    }
+
+    public Empresa getEmpresa(int empresaId) {
+        Empresa empresa = empresaRepository.findById(empresaId)
+                .orElseThrow(() -> new EmpresaNotFoundException());
+
+        if (empresa.getStatus() == Boolean.FALSE) {
+            throw new EmpresaDesativadaException();
+        }
+        return empresa;
+    }
+
+    public EmpresaResponseClienteDTO buscarEmpresaById (int empresaId){
+        Empresa empresa = getEmpresa(empresaId);
+        return EmpresaResponseClienteDTO.toDto(empresa);
+
+    }
+
+    public void deletarEmpresa(int empresaId){
+        Empresa empresa = getEmpresa(empresaId);
+        empresa.setStatus(Boolean.FALSE);
+        empresaRepository.save(empresa);
+    }
+
     private void validarCnpjNaoExistente(String cnpj) {
         if (empresaRepository.existsByCnpj(cnpj)) {
             throw new CnpjExistenteException();
@@ -67,37 +98,6 @@ public class EmpresaService {
     private void salvarEmpresaEndereco(Endereco endereco, Empresa empresa) {
         endereco.setEmpresa(empresa);
         enderecoRepository.save(endereco);
-        empresaRepository.save(empresa);
-    }
-
-
-    public List<EmpresaResponseDTO> listarEmpresas() {
-        List<Empresa> empresaList = empresaRepository.findAll();
-        return empresaList.stream()
-                .filter(empresa -> empresa.getStatus().equals(Boolean.TRUE))
-                .map(empresa -> EmpresaResponseDTO.toDto(empresa))
-                .collect(Collectors.toList());
-    }
-
-    public Empresa getEmpresa(int empresaId) {
-        Empresa empresa = empresaRepository.findById(empresaId)
-                .orElseThrow(() -> new EmpresaNotFoundException());
-
-        if (empresa.getStatus() == Boolean.FALSE) {
-            throw new EmpresaDesativadaException();
-        }
-        return empresa;
-    }
-
-    public EmpresaResponseClienteDTO buscarEmpresaById (int empresaId){
-        Empresa empresa = getEmpresa(empresaId);
-        return EmpresaResponseClienteDTO.toDto(empresa);
-
-    }
-
-    public void deletarEmpresa(int empresaId){
-        Empresa empresa = getEmpresa(empresaId);
-        empresa.setStatus(Boolean.FALSE);
         empresaRepository.save(empresa);
     }
 }

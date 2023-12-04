@@ -6,7 +6,7 @@ import br.com.carrancas.start.minhavez.dto.response.TicketResponseRelatorioDTO;
 import br.com.carrancas.start.minhavez.entities.Cliente;
 import br.com.carrancas.start.minhavez.entities.Fila;
 import br.com.carrancas.start.minhavez.entities.Ticket;
-import br.com.carrancas.start.minhavez.eums.Status;
+import br.com.carrancas.start.minhavez.enums.Status;
 import br.com.carrancas.start.minhavez.exception.cliente.ClienteEmFilaException;
 import br.com.carrancas.start.minhavez.exception.ticket.TicketStatusException;
 import br.com.carrancas.start.minhavez.repositories.TicketRepository;
@@ -151,6 +151,7 @@ public class TicketService {
         LocalDate dataAtual = LocalDate.now();
 
         if (!fila.getData().equals(dataAtual)) {
+            //TODO fazer validação, para o usuario nao conseguir entrar na fila do dia anterior...
             ticket.setOrdem(ordem);
         } else {
             Ticket ultimoTicket = ticketRepository

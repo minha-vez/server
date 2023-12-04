@@ -1,6 +1,6 @@
 package br.com.carrancas.start.minhavez.entities;
 
-import br.com.carrancas.start.minhavez.eums.Status;
+import br.com.carrancas.start.minhavez.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 

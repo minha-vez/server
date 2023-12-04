@@ -1,7 +1,7 @@
 package br.com.carrancas.start.minhavez.dto.response;
 
 import br.com.carrancas.start.minhavez.entities.Ticket;
-import br.com.carrancas.start.minhavez.eums.Status;
+import br.com.carrancas.start.minhavez.enums.Status;
 import lombok.*;
 
 import java.time.LocalTime;

@@ -1,7 +1,7 @@
 package br.com.carrancas.start.minhavez.dto.request;
 
 import br.com.carrancas.start.minhavez.entities.Funcionario;
-import br.com.carrancas.start.minhavez.eums.Genero;
+import br.com.carrancas.start.minhavez.enums.Genero;
 import lombok.*;
 
 import java.time.LocalDate;
